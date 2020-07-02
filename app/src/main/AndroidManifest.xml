@@ -1,0 +1,12 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.thanosfisherman.superherosquadmaker">
+
+    <application
+        android:name=".SquadMakerApp"
+        android:fullBackupContent="true"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        tools:ignore="GoogleAppIndexingWarning" />
+
+</manifest>

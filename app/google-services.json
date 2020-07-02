@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "485852560611",
+    "firebase_url": "https://superherosquadmaker.firebaseio.com",
+    "project_id": "superherosquadmaker",
+    "storage_bucket": "superherosquadmaker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485852560611:android:90aaadca0865ae2c4e59d6",
+        "android_client_info": {
+          "package_name": "com.thanosfisherman.superherosquadmaker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485852560611-se9shvi57u4k7i0p6h16cbpnj6h9b41b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9Oxq8l7-0mz12TrUy9cwhLgAjxD5gXrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485852560611-se9shvi57u4k7i0p6h16cbpnj6h9b41b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
