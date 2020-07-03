@@ -3,13 +3,13 @@ import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.artifacts.dsl.DependencyHandler
 
 fun DependencyHandler.addAppModuleDependencies() {
-    //ModuleDependency.getAppModuleDependencies().forEach { implementation(project(it)) }
+    ModuleDependency.getAppModuleDependencies().forEach { implementation(project(it)) }
     CoreDependency.getAll().forEach { implementation(it) }
     //FirebaseDependency.getAll().forEach { implementation(it) }
 }
 
 fun DependencyHandler.addPresentationDependencies() {
-    implementation(project(ModuleDependency.DOMAIN))
+    //implementation(project(ModuleDependency.DOMAIN))
     CoreDependency.getAll().forEach { implementation(it) }
     UiDependency.getAll().forEach { implementation(it) }
 }

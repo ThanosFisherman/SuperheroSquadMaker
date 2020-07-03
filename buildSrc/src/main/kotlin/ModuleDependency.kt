@@ -14,6 +14,6 @@ object ModuleDependency {
         .map { it.getter.call().toString() }
         .toSet()
 
-    fun getAppModuleDependencies() = setOf(PRESENTATION, DOMAIN, DATA_NETWORK, DATA_PREFS, DATA_BLUETOOTH)
+    fun getAppModuleDependencies() = setOf(PRESENTATION)
 
 }
