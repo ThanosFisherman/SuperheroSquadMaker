@@ -24,7 +24,7 @@ fun DependencyHandler.addDataNetworkDependencies() {
     NetworkDependency.getAll().forEach { implementation(it) }
 }
 
-fun DependencyHandler.addDataPrefsDependencies() {
+fun DependencyHandler.addDataPersistenceDependencies() {
     implementation(project(ModuleDependency.DOMAIN))
     CoreDependency.getAll().forEach { implementation(it) }
     PrefsDependency.getAll().forEach { implementation(it) }
