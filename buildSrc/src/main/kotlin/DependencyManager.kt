@@ -9,7 +9,7 @@ fun DependencyHandler.addAppModuleDependencies() {
 }
 
 fun DependencyHandler.addPresentationDependencies() {
-    //implementation(project(ModuleDependency.DOMAIN))
+    implementation(project(ModuleDependency.DOMAIN))
     CoreDependency.getAll().forEach { implementation(it) }
     UiDependency.getAll().forEach { implementation(it) }
 }
