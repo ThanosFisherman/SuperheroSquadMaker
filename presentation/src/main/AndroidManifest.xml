@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SquadMaker">
         <activity
+            android:name=".activities.HeroDetailsActivity"
+            android:label="@string/title_activity_hero_details" />
+        <activity
             android:name=".activities.MainActivity"
             android:theme="@style/Theme.SquadMaker.LaunchScreen">
             <intent-filter>
