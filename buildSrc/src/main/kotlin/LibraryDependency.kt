@@ -21,6 +21,7 @@ private object LibraryVersion {
     const val mayIVersion = "2.3.0"
     const val progressButtonVersion = "2.1.0"
     const val flowBindingsVersion = "0.12.0"
+    const val circleImageView = "3.1.0"
 
     //Network Versions
     const val retrofit2Version = "2.9.0"
@@ -43,21 +44,21 @@ private object LibraryVersion {
 
 object CoreDependency {
 
-    const val kotlin             = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${CoreVersion.KOTLIN}"
-    const val kotlinReflect      = "org.jetbrains.kotlin:kotlin-reflect:${CoreVersion.KOTLIN}"
-    const val rxjava2            = "io.reactivex.rxjava2:rxjava:${LibraryVersion.rxJavaVersion}"
-    const val rxAndroid          = "io.reactivex.rxjava2:rxandroid:${LibraryVersion.rxAndroidVersion}"
-    const val rxKotlin           = "io.reactivex.rxjava2:rxkotlin:${LibraryVersion.rxKotlinVersion}"
-    const val koin               = "org.koin:koin-android:${LibraryVersion.koinVersion}"
-    const val koinVM             = "org.koin:koin-androidx-viewmodel:${LibraryVersion.koinVersion}"
-    const val koinScope          = "org.koin:koin-androidx-scope:${LibraryVersion.koinVersion}"
-    const val timber             = "com.jakewharton.timber:timber:${LibraryVersion.timberVersion}"
-    const val moshi              = "com.squareup.moshi:moshi-kotlin:${LibraryVersion.moshiVersion}"
-    const val moshiAdapters      = "com.squareup.moshi:moshi-adapters:${LibraryVersion.moshiVersion}"
-    const val jwt                = "com.auth0.android:jwtdecode:${LibraryVersion.jwtVersion}"
-    const val coroutinesCore     = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${LibraryVersion.coroutinesVersion}"
-    const val coroutinesAndroid  = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibraryVersion.coroutinesVersion}"
-    const val blueFLow           = "io.github.thanosfisherman.blueflow:blueflow:${LibraryVersion.blueFlowVersion}"
+    const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${CoreVersion.KOTLIN}"
+    const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${CoreVersion.KOTLIN}"
+    const val rxjava2 = "io.reactivex.rxjava2:rxjava:${LibraryVersion.rxJavaVersion}"
+    const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${LibraryVersion.rxAndroidVersion}"
+    const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${LibraryVersion.rxKotlinVersion}"
+    const val koin = "org.koin:koin-android:${LibraryVersion.koinVersion}"
+    const val koinVM = "org.koin:koin-androidx-viewmodel:${LibraryVersion.koinVersion}"
+    const val koinScope = "org.koin:koin-androidx-scope:${LibraryVersion.koinVersion}"
+    const val timber = "com.jakewharton.timber:timber:${LibraryVersion.timberVersion}"
+    const val moshi = "com.squareup.moshi:moshi-kotlin:${LibraryVersion.moshiVersion}"
+    const val moshiAdapters = "com.squareup.moshi:moshi-adapters:${LibraryVersion.moshiVersion}"
+    const val jwt = "com.auth0.android:jwtdecode:${LibraryVersion.jwtVersion}"
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${LibraryVersion.coroutinesVersion}"
+    const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibraryVersion.coroutinesVersion}"
+    const val blueFLow = "io.github.thanosfisherman.blueflow:blueflow:${LibraryVersion.blueFlowVersion}"
 
     fun getAll() = CoreDependency::class.memberProperties
         .filter { it.isConst }
@@ -67,19 +68,20 @@ object CoreDependency {
 
 object UiDependency {
 
-    const val androidX                = "androidx.appcompat:appcompat:${LibraryVersion.androidxVersion}"
-    const val constraintLayout        = "androidx.constraintlayout:constraintlayout:${LibraryVersion.constraintLayoutVersion}"
-    const val viewModelLiveData       = "androidx.lifecycle:lifecycle-extensions:${LibraryVersion.lifecycleVersionX}"
+    const val androidX = "androidx.appcompat:appcompat:${LibraryVersion.androidxVersion}"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:${LibraryVersion.constraintLayoutVersion}"
+    const val viewModelLiveData = "androidx.lifecycle:lifecycle-extensions:${LibraryVersion.lifecycleVersionX}"
     const val reactiveStreamsLiveData = "androidx.lifecycle:lifecycle-reactivestreams:${LibraryVersion.lifecycleVersionX}"
-    const val lifecycleLiveData       = "androidx.lifecycle:lifecycle-livedata-ktx:${LibraryVersion.lifecycleVersionX}"
-    const val recyclerView            = "androidx.recyclerview:recyclerview:${LibraryVersion.recyclerViewVersion}"
-    const val navigationUI            = "androidx.navigation:navigation-fragment-ktx:${CoreVersion.NAVIGATION}"
-    const val navigationKtx           = "androidx.navigation:navigation-ui-ktx:${CoreVersion.NAVIGATION}"
-    const val picasso                 = "com.squareup.picasso:picasso:${LibraryVersion.picassoVersion}"
-    const val material                = "com.google.android.material:material:${LibraryVersion.materialVersion}"
-    const val mayI                    = "com.thanosfisherman.mayi:mayi:${LibraryVersion.mayIVersion}"
-    const val viewFlowBindings        = "io.github.reactivecircus.flowbinding:flowbinding-android:${LibraryVersion.flowBindingsVersion}"
-    const val progressButton          = "com.github.razir.progressbutton:progressbutton:${LibraryVersion.progressButtonVersion}"
+    const val lifecycleLiveData = "androidx.lifecycle:lifecycle-livedata-ktx:${LibraryVersion.lifecycleVersionX}"
+    const val recyclerView = "androidx.recyclerview:recyclerview:${LibraryVersion.recyclerViewVersion}"
+    const val navigationUI = "androidx.navigation:navigation-fragment-ktx:${CoreVersion.NAVIGATION}"
+    const val navigationKtx = "androidx.navigation:navigation-ui-ktx:${CoreVersion.NAVIGATION}"
+    const val picasso = "com.squareup.picasso:picasso:${LibraryVersion.picassoVersion}"
+    const val material = "com.google.android.material:material:${LibraryVersion.materialVersion}"
+    const val mayI = "com.thanosfisherman.mayi:mayi:${LibraryVersion.mayIVersion}"
+    const val viewFlowBindings = "io.github.reactivecircus.flowbinding:flowbinding-android:${LibraryVersion.flowBindingsVersion}"
+    const val progressButton = "com.github.razir.progressbutton:progressbutton:${LibraryVersion.progressButtonVersion}"
+    const val circleImageView = "de.hdodenhof:circleimageview:${LibraryVersion.circleImageView}"
 
     fun getAll() = UiDependency::class.memberProperties
         .filter { it.isConst }
@@ -89,11 +91,11 @@ object UiDependency {
 
 object NetworkDependency {
 
-    const val retrofit               = "com.squareup.retrofit2:retrofit:${LibraryVersion.retrofit2Version}"
+    const val retrofit = "com.squareup.retrofit2:retrofit:${LibraryVersion.retrofit2Version}"
     const val retrofitRxJava2Adapter = "com.squareup.retrofit2:adapter-rxjava2:${LibraryVersion.retrofit2Version}"
     const val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${LibraryVersion.retrofit2Version}"
-    const val okhttpLogging          = "com.squareup.okhttp3:logging-interceptor:${LibraryVersion.okhttpLoggingVersion}"
-    const val okio                   = "com.squareup.okio:okio:${LibraryVersion.okioVersion}"
+    const val okhttpLogging = "com.squareup.okhttp3:logging-interceptor:${LibraryVersion.okhttpLoggingVersion}"
+    const val okio = "com.squareup.okio:okio:${LibraryVersion.okioVersion}"
     //const val networkResponseAdapter = "com.github.haroldadmin:NetworkResponseAdapter:4.0.1"
 
     fun getAll() = NetworkDependency::class.memberProperties
@@ -124,8 +126,8 @@ object BluetoothDependency {
 
 object FirebaseDependency {
 
-    const val crashlytics         = "com.crashlytics.sdk.android:crashlytics:${LibraryVersion.firebaseCrashlyticsVersion}"
-    const val firebaseAnalytics   = "com.google.firebase:firebase-analytics:${LibraryVersion.firebaseAnalyticsVersion}"
+    const val crashlytics = "com.crashlytics.sdk.android:crashlytics:${LibraryVersion.firebaseCrashlyticsVersion}"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics:${LibraryVersion.firebaseAnalyticsVersion}"
     const val firebasePerformance = "com.google.firebase:firebase-perf:${LibraryVersion.firebasePerformanceVersion}"
 
     fun getAll() = FirebaseDependency::class.memberProperties
