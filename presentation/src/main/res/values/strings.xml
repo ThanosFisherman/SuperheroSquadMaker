@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">SuperheroSquadMaker</string>
+    <string name="success">Success</string>
+    <string name="try_again">Something went wrong. Please try again</string>
     <string name="title_activity_hero_details">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
