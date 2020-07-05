@@ -1,6 +1,6 @@
 import kotlin.reflect.full.memberProperties
 
-private object LibraryVersion {
+object LibraryVersion {
 
     //Core Versions
     const val koinVersion = "2.1.5"
