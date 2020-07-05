@@ -2,7 +2,7 @@ package com.thanosfisherman.presentation.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.thanosfisherman.domain.common.UseCaseResult
+import com.thanosfisherman.domain.common.NetworkResultState
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.domain.model.ErrorModel
 import com.thanosfisherman.presentation.R
@@ -29,19 +29,19 @@ class MainActivity : AppCompatActivity() {
         observe(mainViewModel.getAllCharacters(), ::onGetHeroesStateChange)
     }
 
-    private fun onGetHeroesStateChange(useCaseResult: UseCaseResult<List<CharacterModel>>) {
-        when (useCaseResult) {
-            is UseCaseResult.Loading -> Timber.i("LOADINGGGGG")
-            is UseCaseResult.Success -> {
-                Timber.i(useCaseResult.data.toString())
+    private fun onGetHeroesStateChange(networkResultState: NetworkResultState<List<CharacterModel>>) {
+        when (networkResultState) {
+            is NetworkResultState.Loading -> Timber.i("LOADINGGGGG")
+            is NetworkResultState.Success -> {
+                Timber.i(networkResultState.data.toString())
             }
-            is UseCaseResult.Error -> {
-                when (useCaseResult.error) {
+            is NetworkResultState.Error -> {
+                when (networkResultState.error) {
                     is ErrorModel.NetworkError -> {
                         Timber.i("NETWORK ERROR PLS TRY AGAIN LATER")
                     }
                     is ErrorModel.ServerError -> {
-                        val msg = (useCaseResult.error as ErrorModel.ServerError).message ?: "ERROR Try again later"
+                        val msg = (networkResultState.error as ErrorModel.ServerError).message ?: "ERROR Try again later"
                         RapidSnack.error(mainToolbar, msg)
                     }
                 }
