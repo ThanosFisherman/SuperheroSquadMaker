@@ -10,9 +10,11 @@ import com.thanosfisherman.presentation.common.extensions.observe
 import com.thanosfisherman.presentation.common.utils.RapidSnack
 import com.thanosfisherman.presentation.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
+@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
     private val mainViewModel: MainViewModel by viewModel()

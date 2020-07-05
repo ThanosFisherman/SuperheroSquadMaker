@@ -32,8 +32,9 @@ private object LibraryVersion {
     //Bluetooth Versions
     const val blueFlowVersion = "1.1.0"
 
-    //Prefs Versions
+    //Persistence Versions
     const val prefsVersion = "1.1.1"
+    const val roomVersion = "2.2.5"
 
     //Firebase Versions
     const val firebasePerformanceVersion = "19.0.7"
@@ -104,11 +105,12 @@ object NetworkDependency {
         .toSet()
 }
 
-object PrefsDependency {
+object PersistenceDependency {
 
     const val sharedPrefs = "androidx.preference:preference-ktx:${LibraryVersion.prefsVersion}"
-
-    fun getAll() = PrefsDependency::class.memberProperties
+    const val roomDb = "androidx.room:room-runtime:${LibraryVersion.roomVersion}"
+    const val roomKtx = "androidx.room:room-ktx:${LibraryVersion.roomVersion}"
+    fun getAll() = PersistenceDependency::class.memberProperties
         .filter { it.isConst }
         .map { it.getter.call().toString() }
         .toSet()

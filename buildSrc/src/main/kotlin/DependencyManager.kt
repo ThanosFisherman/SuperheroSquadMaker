@@ -27,7 +27,7 @@ fun DependencyHandler.addDataNetworkDependencies() {
 fun DependencyHandler.addDataPersistenceDependencies() {
     implementation(project(ModuleDependency.DOMAIN))
     CoreDependency.getAll().forEach { implementation(it) }
-    PrefsDependency.getAll().forEach { implementation(it) }
+    PersistenceDependency.getAll().forEach { implementation(it) }
 }
 
 fun DependencyHandler.addDataBluetoothDependencies() {
@@ -51,6 +51,7 @@ fun DependencyHandler.addTestDependencies() {
     testImplementation(TestLibraryDependency.MOCKITO_KOTLIN)
     testImplementation(TestLibraryDependency.ANDROID_X_CORE_TESTING)
     testImplementation(TestLibraryDependency.ANDROID_X_TEST_RULES)
+    testImplementation(TestLibraryDependency.ROOM_TEST)
 
     testImplementation(TestLibraryDependency.KOIN_TEST)
 
