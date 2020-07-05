@@ -6,7 +6,9 @@ import androidx.lifecycle.asLiveData
 import com.thanosfisherman.domain.common.UseCaseResult
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.domain.usecase.GetAllCharactersUseCase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class MainViewModel(private val getAllCharactersUseCase: GetAllCharactersUseCase) : ViewModel() {
 
     fun getAllCharacters(): LiveData<UseCaseResult<List<CharacterModel>>> {
