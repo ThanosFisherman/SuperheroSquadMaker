@@ -96,7 +96,7 @@ object NetworkDependency {
     const val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${LibraryVersion.retrofit2Version}"
     const val okhttpLogging = "com.squareup.okhttp3:logging-interceptor:${LibraryVersion.okhttpLoggingVersion}"
     const val okio = "com.squareup.okio:okio:${LibraryVersion.okioVersion}"
-    //const val networkResponseAdapter = "com.github.haroldadmin:NetworkResponseAdapter:4.0.1"
+    const val networkResponseAdapter = "com.github.haroldadmin:NetworkResponseAdapter:4.0.1"
 
     fun getAll() = NetworkDependency::class.memberProperties
         .filter { it.isConst }

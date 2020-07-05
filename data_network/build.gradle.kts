@@ -16,11 +16,10 @@ android {
 
     buildTypes {
         getByName(BuildType.DEBUG) {
-            buildConfigField("String", "BASE_URL", "\"https://dev-api.gwf.ch/\"")
+            buildConfigField("String", "BASE_URL", "\"https://gateway.marvel.com:443/v1/public/\"")
         }
         getByName(BuildType.RELEASE) {
-            buildConfigField("String", "BASE_URL", "\"https://api.gwf.ch/\"")
-            //buildConfigField("String", "BASE_URL", "\"https://dev-api.gwf.ch/\"")
+            buildConfigField("String", "BASE_URL", "\"https://gateway.marvel.com:443/v1/public/\"")
         }
     }
 }
