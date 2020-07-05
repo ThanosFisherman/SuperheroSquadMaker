@@ -9,18 +9,11 @@ sealed class ErrorModel {
         object ServerUnavailable : NetworkError()
     }
 
-    // Generic HTTP Error 400+ from myGWF
+    // Generic HTTP Error 400+
     data class ServerError(
         val code: String,
-        val detail: String? = null,
-        val errors: Map<String, List<String>>? = null
+        val message: String? = null
     ) : ErrorModel()
-
-    // Login Params Validation
-    sealed class LoginError : ErrorModel() {
-        object UsernameEmpty : LoginError()
-        object PasswordEmpty : LoginError()
-    }
 
     object Unknown : ErrorModel()
 }

@@ -21,6 +21,7 @@ class SquadMakerApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initKoin()
         initTimber()
     }
 
@@ -30,11 +31,11 @@ class SquadMakerApp : Application() {
         }
     }
 
-    private fun initDI() {
+    private fun initKoin() {
         startKoin {
             androidContext(this@SquadMakerApp)
             if (BuildConfig.DEBUG) androidLogger(Level.DEBUG)
-            modules(presentationModules + domainModules  + persistenceModules + networkModules)
+            modules(presentationModules + domainModules + networkModules + persistenceModules)
         }
     }
 }

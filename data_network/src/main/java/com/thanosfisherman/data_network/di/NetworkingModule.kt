@@ -18,6 +18,8 @@ val networkingModule = module {
 
     single { LoggingInterceptor() }
 
+    single { AuthInterceptor() }
+
     single {
         MoshiConverterFactory.create(
             Moshi.Builder()

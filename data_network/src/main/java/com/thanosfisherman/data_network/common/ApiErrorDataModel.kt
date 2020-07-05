@@ -5,12 +5,10 @@ import com.thanosfisherman.domain.model.ErrorModel
 
 data class ApiErrorDataModel(
     val code: String,
-    val detail: String? = null,
-    val errors: Map<String, List<String>>? = null
+    val message: String? = null
 ) : DomainMappable<ErrorModel> {
     override fun asDomain(): ErrorModel = ErrorModel.ServerError(
         this.code,
-        this.detail,
-        this.errors
+        this.message
     )
 }
