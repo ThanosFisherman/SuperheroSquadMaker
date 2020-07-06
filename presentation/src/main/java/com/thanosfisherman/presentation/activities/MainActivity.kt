@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         observe(mainViewModel.heroesLive) { onGetHeroesStateChange(it) }
+        observe(mainViewModel.squadLive) { onGetSquadStateChange(it) }
     }
 
     private fun onGetHeroesStateChange(dbResultState: DbResultState<List<CharacterModel>>?) {
@@ -40,6 +41,22 @@ class MainActivity : AppCompatActivity() {
             }
             is DbResultState.GenericError -> {
                 Timber.i("GenericError")
+            }
+        }
+    }
+
+    private fun onGetSquadStateChange(dbResultState: DbResultState<List<CharacterModel>>?) {
+        when (dbResultState) {
+            is DbResultState.Loading -> Timber.i("LOADING SQUAAAAAADDD.........")
+            is DbResultState.Success -> {
+                Timber.i("GOT SQUAD")
+                Timber.i(dbResultState.data[1].name)
+            }
+            is DbResultState.EmptyError -> {
+                Timber.i("EmptyError SQUAD")
+            }
+            is DbResultState.GenericError -> {
+                Timber.i("GenericError SQUAD")
             }
         }
     }

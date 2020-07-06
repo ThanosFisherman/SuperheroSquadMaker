@@ -1,6 +1,7 @@
 package com.thanosfisherman.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.thanosfisherman.domain.repos.DbRepo
 import com.thanosfisherman.domain.repos.NetworkRepo
@@ -14,4 +15,5 @@ class MainViewModel(private val dbRepo: DbRepo, networkRepo: NetworkRepo) : View
         networkCall = { networkRepo.getAllCharacters() },
         saveCallResult = { characters -> dbRepo.addAllHeroes(characters) }
     )
+    val squadLive = dbRepo.getSquad().asLiveData()
 }
