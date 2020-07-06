@@ -9,13 +9,12 @@ import com.thanosfisherman.domain.model.CharacterModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 /**
  * The database serves as the single source of truth.
  * Therefore UI can receive data updates from database only.
  */
-fun resultLiveData(
+fun singleSourceLiveData(
     scope: CoroutineScope,
     databaseQuery: () -> Flow<DbResultState<List<CharacterModel>>>,
     networkCall: () -> Flow<NetworkResultState<List<CharacterModel>>>,
@@ -23,20 +22,39 @@ fun resultLiveData(
 ): LiveData<DbResultState<List<CharacterModel>>?> {
 
     return databaseQuery().asLiveData().combineWith(networkCall().asLiveData()) { dbResultState, networkResultState ->
+        if (dbResultState is DbResultState.Success) {
+            if (networkResultState is NetworkResultState.Success) {
+                scope.launch {
+                    saveCallResult(networkResultState.data)
+                }
+            }
+            return@combineWith DbResultState.Success(dbResultState.data)
+        } else {
+            if (networkResultState is NetworkResultState.Success) {
+                scope.launch {
+                    saveCallResult(networkResultState.data)
+                }
+                return@combineWith DbResultState.Success(networkResultState.data)
+            } else if (networkResultState is NetworkResultState.Error) {
+                return@combineWith DbResultState.GenericError
+            }
+        }
 
-        when (networkResultState) {
-            is NetworkResultState.Success -> {
-                Timber.i("SUCEES FROM NETWORK")
+/*        when {
+            dbResultState is DbResultState.Success -> {
+                return@combineWith DbResultState.Success(dbResultState.data)
+            }
+            networkResultState is NetworkResultState.Success -> {
                 scope.launch {
                     saveCallResult(networkResultState.data)
                 }
 
                 return@combineWith DbResultState.Success(networkResultState.data)
             }
-            is NetworkResultState.Error -> {
+            networkResultState is NetworkResultState.Error -> {
                 return@combineWith DbResultState.GenericError
             }
-        }
+        }*/
         return@combineWith dbResultState
     }
 }
