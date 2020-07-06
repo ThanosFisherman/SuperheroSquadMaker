@@ -1,11 +1,19 @@
 package com.thanosfisherman.data_persistence.db
 
 import android.content.Context
+import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.thanosfisherman.data_persistence.daos.HeroesDao
+import com.thanosfisherman.data_persistence.daos.SquadDao
+import com.thanosfisherman.data_persistence.models.HeroEntity
+import com.thanosfisherman.data_persistence.models.SquadEntity
 
+@Database(entities = [HeroEntity::class, SquadEntity::class], version = 1)
 abstract class HeroesDatabase : RoomDatabase() {
 
+    abstract fun heroesDao(): HeroesDao
+    abstract fun squadDao(): SquadDao
 
     companion object {
         @Volatile

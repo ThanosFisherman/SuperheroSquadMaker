@@ -2,12 +2,10 @@ package com.thanosfisherman.presentation.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.thanosfisherman.domain.common.NetworkResultState
+import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.model.CharacterModel
-import com.thanosfisherman.domain.model.ErrorModel
 import com.thanosfisherman.presentation.R
 import com.thanosfisherman.presentation.common.extensions.observe
-import com.thanosfisherman.presentation.common.utils.RapidSnack
 import com.thanosfisherman.presentation.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,25 +26,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        observe(mainViewModel.getAllCharacters(), ::onGetHeroesStateChange)
+        observe(mainViewModel.heroesLive) { onGetHeroesStateChange(it) }
     }
 
-    private fun onGetHeroesStateChange(networkResultState: NetworkResultState<List<CharacterModel>>) {
-        when (networkResultState) {
-            is NetworkResultState.Loading -> Timber.i("LOADINGGGGG")
-            is NetworkResultState.Success -> {
-                Timber.i(networkResultState.data.toString())
+    private fun onGetHeroesStateChange(dbResultState: DbResultState<List<CharacterModel>>?) {
+        when (dbResultState) {
+            is DbResultState.Loading -> Timber.i("LOADING.........")
+            is DbResultState.Success -> {
+                Timber.i(dbResultState.data[1].name)
             }
-            is NetworkResultState.Error -> {
-                when (networkResultState.error) {
-                    is ErrorModel.NetworkError -> {
-                        Timber.i("NETWORK ERROR PLS TRY AGAIN LATER")
-                    }
-                    is ErrorModel.ServerError -> {
-                        val msg = (networkResultState.error as ErrorModel.ServerError).message ?: "ERROR Try again later"
-                        RapidSnack.error(mainToolbar, msg)
-                    }
-                }
+            is DbResultState.EmptyError -> {
+                Timber.i("EmptyError")
+            }
+            is DbResultState.GenericError -> {
+                Timber.i("GenericError")
             }
         }
     }
