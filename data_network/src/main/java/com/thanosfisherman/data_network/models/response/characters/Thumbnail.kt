@@ -1,4 +1,4 @@
-package com.thanosfisherman.data_network.models.response
+package com.thanosfisherman.data_network.models.response.characters
 
 data class Thumbnail(
     val extension: String,

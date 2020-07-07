@@ -19,7 +19,7 @@
     <dimen name="card_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="list_item_avatar_size">40dp</dimen>
-    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="app_bar_height">250dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="snack_icon_padding">8dp</dimen>
 </resources>

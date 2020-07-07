@@ -1,4 +1,4 @@
-package com.thanosfisherman.data_network.models.response
+package com.thanosfisherman.data_network.models.response.characters
 
 import com.thanosfisherman.domain.common.DomainMappable
 import com.thanosfisherman.domain.model.CharacterModel

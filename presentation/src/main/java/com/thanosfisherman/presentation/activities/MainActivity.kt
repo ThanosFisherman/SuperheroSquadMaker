@@ -1,5 +1,6 @@
 package com.thanosfisherman.presentation.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -40,7 +41,9 @@ class MainActivity : AppCompatActivity() {
         recycler_heroes.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
         recycler_heroes.adapter = adapter
         adapter.itemClicks.debounce(300).onEach { characterModel ->
-            Timber.i("CLICKED ${characterModel.name}")
+            val intent = Intent(this, HeroDetailsActivity::class.java)
+            intent.putExtra("CharacterModel", characterModel)
+            startActivity(intent)
         }.launchIn(lifecycleScope)
     }
 
