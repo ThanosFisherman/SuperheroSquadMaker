@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class NetworkRepoImpl(private val marvelApi: MarvelApi) : NetworkRepo {
-    override fun getAllCharacters(): Flow<NetworkResultState<List<CharacterModel>>> = flow {
-        emit(marvelApi.getCharacters().mapToDomain())
+    override fun getAllCharacters(offset: Int): Flow<NetworkResultState<List<CharacterModel>>> = flow {
+        emit(marvelApi.getCharacters(offset).mapToDomain())
     }
 }

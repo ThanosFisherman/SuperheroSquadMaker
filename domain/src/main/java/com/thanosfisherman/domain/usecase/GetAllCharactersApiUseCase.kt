@@ -12,6 +12,6 @@ import kotlinx.coroutines.flow.onStart
 class GetAllCharactersApiUseCase(private val networkRepo: NetworkRepo) : BaseUseCase<Unit, Flow<NetworkResultState<List<CharacterModel>>>>() {
 
     override fun execute(params: Unit): Flow<NetworkResultState<List<CharacterModel>>> {
-        return networkRepo.getAllCharacters().onStart { emit(NetworkResultState.Loading) }
+        return networkRepo.getAllCharacters(1).onStart { emit(NetworkResultState.Loading) }
     }
 }

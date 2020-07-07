@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface NetworkRepo {
 
-    fun getAllCharacters(): Flow<NetworkResultState<List<CharacterModel>>>
+    fun getAllCharacters(offset: Int): Flow<NetworkResultState<List<CharacterModel>>>
 }

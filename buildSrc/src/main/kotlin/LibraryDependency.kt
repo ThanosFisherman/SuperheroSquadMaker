@@ -22,6 +22,9 @@ object LibraryVersion {
     const val progressButtonVersion = "2.1.0"
     const val flowBindingsVersion = "0.12.0"
     const val circleImageView = "3.1.0"
+    const val pagingVersion = "2.1.2"
+    const val coilVersion = "0.11.0"
+    //const val glideVersion = "4.11.0"
 
     //Network Versions
     const val retrofit2Version = "2.9.0"
@@ -59,7 +62,7 @@ object CoreDependency {
     const val jwt = "com.auth0.android:jwtdecode:${LibraryVersion.jwtVersion}"
     const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${LibraryVersion.coroutinesVersion}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibraryVersion.coroutinesVersion}"
-    const val blueFLow = "io.github.thanosfisherman.blueflow:blueflow:${LibraryVersion.blueFlowVersion}"
+    const val listPageAdapter = "androidx.paging:paging-runtime-ktx:${LibraryVersion.pagingVersion}"
 
     fun getAll() = CoreDependency::class.memberProperties
         .filter { it.isConst }
@@ -83,6 +86,8 @@ object UiDependency {
     const val viewFlowBindings = "io.github.reactivecircus.flowbinding:flowbinding-android:${LibraryVersion.flowBindingsVersion}"
     const val progressButton = "com.github.razir.progressbutton:progressbutton:${LibraryVersion.progressButtonVersion}"
     const val circleImageView = "de.hdodenhof:circleimageview:${LibraryVersion.circleImageView}"
+    const val coil = "io.coil-kt:coil:${LibraryVersion.coilVersion}"
+    //const val glide = "com.github.bumptech.glide:glide:${LibraryVersion.glideVersion}"
 
     fun getAll() = UiDependency::class.memberProperties
         .filter { it.isConst }
