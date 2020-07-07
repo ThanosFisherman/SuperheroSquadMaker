@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.model.CharacterModel
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(applicationContext)
         recycler_heroes.setHasFixedSize(true)
         recycler_heroes.layoutManager = layoutManager
+        recycler_heroes.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
         recycler_heroes.adapter = adapter
         adapter.itemClicks.debounce(300).onEach { characterModel ->
             Timber.i("CLICKED ${characterModel.name}")
@@ -44,8 +46,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-       /* observe(mainViewModel.heroesLive) { onGetHeroesStateChange(it) }
-        observe(mainViewModel.squadLive) { onGetSquadStateChange(it) }*/
+        /* observe(mainViewModel.heroesLive) { onGetHeroesStateChange(it) }
+         observe(mainViewModel.squadLive) { onGetSquadStateChange(it) }*/
         observe(mainViewModel.observeRemotePagedSets()) { pagedList: PagedList<CharacterModel> -> adapter.submitList(pagedList) }
     }
 
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         when (dbResultState) {
             is DbResultState.Loading -> Timber.i("LOADING.........")
             is DbResultState.Success -> {
-               // adapter.submitList()
+                // adapter.submitList()
             }
             is DbResultState.EmptyError -> {
                 Timber.i("EmptyError")
