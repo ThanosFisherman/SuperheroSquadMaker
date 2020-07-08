@@ -28,29 +28,31 @@ class DbRepoImpl(private val heroesDao: HeroesDao, private val squadDao: SquadDa
             emit(DbResultState.Success(squad.map { it.asDomain() }))
     }
 
-    override suspend fun addHeroToSquad(characterModel: CharacterModel): Flow<DbResultState<Long>> = flow {
+    override fun addHeroToSquad(characterModel: CharacterModel): Flow<DbResultState<Long>> = flow {
         val squadEntity = SquadEntity(characterModel.id, characterModel.name, characterModel.description, characterModel.pic)
         val id = squadDao.insertHeroToSquad(squadEntity)
         emit(DbResultState.Success(id))
     }
 
-    override suspend fun deleteHeroFromSquad(characterModel: CharacterModel): Flow<DbResultState<Unit>> = flow {
+    override fun deleteHeroFromSquad(characterModel: CharacterModel): Flow<DbResultState<Unit>> = flow {
         squadDao.deleteHeroFromSquadById(characterModel.id)
         emit(DbResultState.Success(Unit))
     }
 
-    override suspend fun addHero(characterModel: CharacterModel): Flow<DbResultState<Long>> = flow {
+    override fun addHero(characterModel: CharacterModel): Flow<DbResultState<Long>> = flow {
         val heroEntity = HeroEntity(characterModel.id, characterModel.name, characterModel.description, characterModel.pic)
         val id = heroesDao.insertHero(heroEntity)
         emit(DbResultState.Success(id))
     }
 
-    override suspend fun addAllHeroes(heroes: List<CharacterModel>) {
+    override fun addAllHeroes(heroes: List<CharacterModel>): Flow<DbResultState<Unit>> = flow {
         val heroeEntities = heroes.map { HeroEntity(it.id, it.name, it.description, it.pic) }
         heroesDao.insertAllHeroes(heroeEntities)
+        emit(DbResultState.Success(Unit))
+
     }
 
-    override suspend fun updateSquad(characterModel: CharacterModel): Flow<DbResultState<Int>> = flow {
+    override fun updateSquad(characterModel: CharacterModel): Flow<DbResultState<Int>> = flow {
         val squadEntity = SquadEntity(characterModel.id, characterModel.name, characterModel.description, characterModel.pic)
         val rows = squadDao.updateHeroInSquad(squadEntity)
         emit(DbResultState.Success(rows))

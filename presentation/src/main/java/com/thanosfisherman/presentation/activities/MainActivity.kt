@@ -8,6 +8,7 @@ import androidx.paging.PagedList
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanosfisherman.domain.common.DbResultState
+import com.thanosfisherman.domain.common.NetworkResultState
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.presentation.R
 import com.thanosfisherman.presentation.adapters.HeroesRecyclerAdapter
@@ -45,26 +46,23 @@ class MainActivity : AppCompatActivity() {
             intent.putExtra("CharacterModel", characterModel)
             startActivity(intent)
         }.launchIn(lifecycleScope)
+        observe(mainViewModel.liveCharactersPagedApi) { pagedList: PagedList<CharacterModel> -> adapter.submitList(pagedList) }
+        observe(mainViewModel.liveNetworkResult, ::onGetNetworkResultStateChange)
     }
 
     override fun onStart() {
         super.onStart()
-        /* observe(mainViewModel.heroesLive) { onGetHeroesStateChange(it) }
-         observe(mainViewModel.squadLive) { onGetSquadStateChange(it) }*/
-        observe(mainViewModel.observeRemotePagedSets()) { pagedList: PagedList<CharacterModel> -> adapter.submitList(pagedList) }
+        observe(mainViewModel.liveSquadCharacters, ::onGetSquadStateChange)
     }
 
-    private fun onGetHeroesStateChange(dbResultState: DbResultState<List<CharacterModel>>?) {
-        when (dbResultState) {
-            is DbResultState.Loading -> Timber.i("LOADING.........")
-            is DbResultState.Success -> {
-                // adapter.submitList()
+    private fun onGetNetworkResultStateChange(networkResultState: NetworkResultState<List<CharacterModel>>) {
+        when (networkResultState) {
+            is NetworkResultState.Loading -> Timber.i("LOADING NETWORK.........")
+            is NetworkResultState.Success -> {
+                Timber.i("GOT CHARACTERS LIST")
             }
-            is DbResultState.EmptyError -> {
-                Timber.i("EmptyError")
-            }
-            is DbResultState.GenericError -> {
-                Timber.i("GenericError")
+            is NetworkResultState.Error -> {
+                Timber.i("NETWORK ERROR")
             }
         }
     }
@@ -74,7 +72,6 @@ class MainActivity : AppCompatActivity() {
             is DbResultState.Loading -> Timber.i("LOADING SQUAAAAAADDD.........")
             is DbResultState.Success -> {
                 Timber.i("GOT SQUAD")
-                Timber.i(dbResultState.data[1].name)
             }
             is DbResultState.EmptyError -> {
                 Timber.i("EmptyError SQUAD")

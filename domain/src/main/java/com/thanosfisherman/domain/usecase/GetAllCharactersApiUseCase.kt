@@ -9,9 +9,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onStart
 
 @ExperimentalCoroutinesApi
-class GetAllCharactersApiUseCase(private val networkRepo: NetworkRepo) : BaseUseCase<Unit, Flow<NetworkResultState<List<CharacterModel>>>>() {
-
-    override fun execute(params: Unit): Flow<NetworkResultState<List<CharacterModel>>> {
-        return networkRepo.getAllCharacters(1).onStart { emit(NetworkResultState.Loading) }
+class GetAllCharactersApiUseCase(private val networkRepo: NetworkRepo) : BaseUseCase<Int, Flow<NetworkResultState<List<CharacterModel>>>>() {
+    override fun execute(params: Int): Flow<NetworkResultState<List<CharacterModel>>> {
+        return networkRepo.getAllCharacters(params).onStart { emit(NetworkResultState.Loading) }
     }
 }

@@ -10,13 +10,13 @@ interface DbRepo {
 
     fun getSquad(): Flow<DbResultState<List<CharacterModel>>>
 
-    suspend fun addHeroToSquad(characterModel: CharacterModel): Flow<DbResultState<Long>>
+    fun addHeroToSquad(characterModel: CharacterModel): Flow<DbResultState<Long>>
 
-    suspend fun deleteHeroFromSquad(characterModel: CharacterModel): Flow<DbResultState<Unit>>
+    fun deleteHeroFromSquad(characterModel: CharacterModel): Flow<DbResultState<Unit>>
 
-    suspend fun addHero(characterModel: CharacterModel): Flow<DbResultState<Long>>
+    fun addHero(characterModel: CharacterModel): Flow<DbResultState<Long>>
 
-    suspend fun addAllHeroes(heroes: List<CharacterModel>)
+    fun addAllHeroes(heroes: List<CharacterModel>): Flow<DbResultState<Unit>>
 
-    suspend fun updateSquad(characterModel: CharacterModel): Flow<DbResultState<Int>>
+    fun updateSquad(characterModel: CharacterModel): Flow<DbResultState<Int>>
 }

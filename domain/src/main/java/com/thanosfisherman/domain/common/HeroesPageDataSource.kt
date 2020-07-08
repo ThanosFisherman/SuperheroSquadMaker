@@ -2,15 +2,21 @@ package com.thanosfisherman.domain.common
 
 import androidx.paging.PageKeyedDataSource
 import com.thanosfisherman.domain.model.CharacterModel
-import com.thanosfisherman.domain.repos.NetworkRepo
+import com.thanosfisherman.domain.model.ErrorModel
+import com.thanosfisherman.domain.usecase.GetAllCharactersApiUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
-class HeroesPageDataSource(private val networkRepo: NetworkRepo, private val scope: CoroutineScope) :
+@ExperimentalCoroutinesApi
+class HeroesPageDataSource(private val getAllCharactersApiUseCase: GetAllCharactersApiUseCase, private val scope: CoroutineScope) :
     PageKeyedDataSource<Int, CharacterModel>() {
+
+    val networkStateChannel = BroadcastChannel<NetworkResultState<List<CharacterModel>>>(Channel.BUFFERED)
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, CharacterModel>) {
         val numberOfItems = params.requestedLoadSize
@@ -37,26 +43,25 @@ class HeroesPageDataSource(private val networkRepo: NetworkRepo, private val sco
         callback: LoadCallback<Int, CharacterModel>?
     ) {
         scope.launch(getJobErrorHandler()) {
-            val response = networkRepo.getAllCharacters(requestedPage * requestedLoadSize)
+            val response = getAllCharactersApiUseCase.execute(requestedPage * requestedLoadSize)
             response.collect {
-                if (it is NetworkResultState.Success) {
-                    val results = it.data
-                    initialCallback?.onResult(results, null, adjacentPage)
-                    callback?.onResult(results, adjacentPage)
-                } else {
-                    postError("ERROR")
+                when (it) {
+                    is NetworkResultState.Success -> {
+                        val results = it.data
+                        initialCallback?.onResult(results, null, adjacentPage)
+                        callback?.onResult(results, adjacentPage)
+                    }
+                    is NetworkResultState.Loading -> {
+                    }
+                    else -> {
+                    }
                 }
+                networkStateChannel.offer(it)
             }
         }
     }
 
     private fun getJobErrorHandler() = CoroutineExceptionHandler { _, e ->
-        postError(e.message ?: e.toString())
-    }
-
-    private fun postError(message: String) {
-        Timber.e("An error happened: $message")
-        // TODO network error handling
-        //networkState.postValue(NetworkState.FAILED)
+        networkStateChannel.offer(NetworkResultState.Error(ErrorModel.Unknown))
     }
 }

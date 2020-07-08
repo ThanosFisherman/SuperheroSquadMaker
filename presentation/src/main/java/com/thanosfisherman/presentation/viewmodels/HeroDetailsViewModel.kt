@@ -5,12 +5,27 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.thanosfisherman.domain.common.NetworkResultState
 import com.thanosfisherman.domain.model.ComicModel
-import com.thanosfisherman.domain.repos.DbRepo
-import com.thanosfisherman.domain.repos.NetworkRepo
+import com.thanosfisherman.domain.usecase.AddToSquadUseCase
+import com.thanosfisherman.domain.usecase.DeleteFromSquadUseCase
+import com.thanosfisherman.domain.usecase.DisplayComicsUseCase
 
-class HeroDetailsViewModel(private val dbRepo: DbRepo, private val networkRepo: NetworkRepo) : ViewModel() {
+class HeroDetailsViewModel(
+    private val displayComicsUseCase: DisplayComicsUseCase,
+    private val addToSquadUseCase: AddToSquadUseCase,
+    private val deleteFromSquadUseCase: DeleteFromSquadUseCase
+) : ViewModel() {
 
-    fun getComicByCharId(charId: Long): LiveData<NetworkResultState<List<ComicModel>>> {
-        return networkRepo.getAllComicsByCharacterId(charId).asLiveData()
+    fun liveGetComicByCharId(charId: Long): LiveData<NetworkResultState<List<ComicModel>>> {
+        return displayComicsUseCase.execute(charId).asLiveData()
+    }
+    fun liveAddToSquad() {
+
+    }
+    fun liveDeleteFromSquad() {
+
+    }
+
+    fun liveCheckInSquad() {
+
     }
 }

@@ -3,14 +3,20 @@ package com.thanosfisherman.domain.common
 import androidx.paging.DataSource
 import androidx.paging.PagedList
 import com.thanosfisherman.domain.model.CharacterModel
-import com.thanosfisherman.domain.repos.NetworkRepo
+import com.thanosfisherman.domain.usecase.GetAllCharactersApiUseCase
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class HeroesPageDataSourceFactory(private val networkRepo: NetworkRepo, private val scope: CoroutineScope) :
+@ExperimentalCoroutinesApi
+class HeroesPageDataSourceFactory(
+    private val heroesPageDataSource: HeroesPageDataSource,
+    private val getAllCharactersApiUseCase: GetAllCharactersApiUseCase,
+    private val scope: CoroutineScope
+) :
     DataSource.Factory<Int, CharacterModel>() {
 
     override fun create(): DataSource<Int, CharacterModel> {
-        return HeroesPageDataSource(networkRepo, scope)
+        return heroesPageDataSource
     }
 
     companion object {
