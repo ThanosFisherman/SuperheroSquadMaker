@@ -75,5 +75,6 @@ android {
 
 dependencies {
     addAppModuleDependencies()
+    addKaptDependencies()
     addTestDependencies()
 }

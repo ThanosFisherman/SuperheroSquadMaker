@@ -8,6 +8,7 @@ import coil.api.load
 import com.thanosfisherman.domain.common.NetworkResultState
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.domain.model.ComicModel
+import com.thanosfisherman.domain.model.ErrorModel
 import com.thanosfisherman.presentation.R
 import com.thanosfisherman.presentation.common.extensions.observe
 import com.thanosfisherman.presentation.common.utils.RapidSnack
@@ -31,15 +32,14 @@ class HeroDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hero_details)
         setSupportActionBar(detailsToolbar)
-        toolbar_layout.title = title
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-
+        val characterModel = intent.getParcelableExtra<CharacterModel>("CharacterModel")
+        toolbar_layout.title = characterModel?.name
         fab.clicks().debounce(300).onEach {
             RapidSnack.success(fab)
         }.launchIn(lifecycleScope)
 
-        val characterModel = intent.getParcelableExtra<CharacterModel>("CharacterModel")
         characterModel?.let {
             txtDescription.text = it.description
             imgBackdrop.load(it.pic)
@@ -59,12 +59,19 @@ class HeroDetailsActivity : AppCompatActivity() {
             is NetworkResultState.Success -> {
                 networkResultState.data.forEach {
                     comics = comics + "\n" + it.title
-                    Timber.i("COMIC %s", it.title)
                 }
                 txtComics.text = comics
             }
             is NetworkResultState.Error -> {
-                Timber.i("Comic update Error")
+                when (val errorModel = networkResultState.error) {
+                    is ErrorModel.Unknown -> {
+                        Timber.e(errorModel.msg)
+                    }
+                    is ErrorModel.NetworkError -> Timber.i("NETWORK ERROR")
+                    is ErrorModel.ServerError -> {
+                        Timber.i("SERVER ERROR " + errorModel.code + " " + errorModel.message)
+                    }
+                }
             }
         }
     }

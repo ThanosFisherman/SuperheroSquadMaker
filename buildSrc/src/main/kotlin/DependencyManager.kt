@@ -63,7 +63,8 @@ fun DependencyHandler.addTestDependencies() {
 
 fun DependencyHandler.addKaptDependencies() {
     PersistenceKaptDependency.getAll().forEach { kapt(it) }
-    //PresentationKaptDependency.getAll().forEach { kapt((it)) }
+    //CoreKaptDependency.getAll().forEach { kapt(it) }
+
 }
 
 /*

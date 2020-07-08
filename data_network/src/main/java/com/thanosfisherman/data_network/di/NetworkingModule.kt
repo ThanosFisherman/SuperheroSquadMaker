@@ -36,8 +36,8 @@ val networkingModule = module {
             addInterceptor(get<LoggingInterceptor>())
             addInterceptor(get<AuthInterceptor>())
             cache(cache)
-            connectTimeout(2500, TimeUnit.MILLISECONDS)
-            callTimeout(10, TimeUnit.SECONDS)
+            connectTimeout(3000, TimeUnit.MILLISECONDS)
+            callTimeout(12, TimeUnit.SECONDS)
         }.build()
     }
 

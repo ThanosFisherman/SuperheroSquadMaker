@@ -15,5 +15,5 @@ sealed class ErrorModel {
         val message: String? = null
     ) : ErrorModel()
 
-    object Unknown : ErrorModel()
+    data class Unknown(val msg: String = "") : ErrorModel()
 }

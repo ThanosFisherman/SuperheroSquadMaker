@@ -62,6 +62,6 @@ class HeroesPageDataSource(private val getAllCharactersApiUseCase: GetAllCharact
     }
 
     private fun getJobErrorHandler() = CoroutineExceptionHandler { _, e ->
-        networkStateChannel.offer(NetworkResultState.Error(ErrorModel.Unknown))
+        networkStateChannel.offer(NetworkResultState.Error(ErrorModel.Unknown(e.message.toString())))
     }
 }
