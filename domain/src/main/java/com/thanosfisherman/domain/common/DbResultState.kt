@@ -5,6 +5,8 @@ sealed class DbResultState<out T : Any> {
 
     object Loading : DbResultState<Nothing>()
 
+    object ShowDialodRemove : DbResultState<Nothing>()
+
     object GenericError : DbResultState<Nothing>()
 
     object EmptyError : DbResultState<Nothing>()

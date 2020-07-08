@@ -1,13 +1,23 @@
 package com.thanosfisherman.domain.usecase
 
-import com.thanosfisherman.domain.common.BaseUseCase
 import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.domain.repos.DbRepo
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.Channel
 
-class GetSquadUseCase(private val dbRepo: DbRepo) : BaseUseCase<Unit, Flow<DbResultState<List<CharacterModel>>>>() {
-    override fun execute(params: Unit): Flow<DbResultState<List<CharacterModel>>> {
-        return dbRepo.getSquad()
+@ExperimentalCoroutinesApi
+class GetSquadUseCase(private val dbRepo: DbRepo) {
+
+    val channelSquad: BroadcastChannel<DbResultState<List<CharacterModel>>> = BroadcastChannel(Channel.BUFFERED)
+
+    suspend fun getSquad() {
+        when (val squadResult = dbRepo.getSquad()) {
+            is DbResultState.Success -> {
+                channelSquad.offer(DbResultState.Success(squadResult.data))
+            }
+            else -> channelSquad.offer(squadResult)
+        }
     }
 }

@@ -2,6 +2,7 @@ package com.thanosfisherman.presentation.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
@@ -48,11 +49,12 @@ class MainActivity : AppCompatActivity() {
         }.launchIn(lifecycleScope)
         observe(mainViewModel.liveCharactersPagedApi) { pagedList: PagedList<CharacterModel> -> adapter.submitList(pagedList) }
         observe(mainViewModel.liveNetworkResult, ::onGetNetworkResultStateChange)
+        observe(mainViewModel.liveSquadCharacters, ::onGetSquadStateChange)
     }
 
     override fun onStart() {
         super.onStart()
-        observe(mainViewModel.liveSquadCharacters, ::onGetSquadStateChange)
+        mainViewModel.getSquad()
     }
 
     private fun onGetNetworkResultStateChange(networkResultState: NetworkResultState<List<CharacterModel>>) {
@@ -69,15 +71,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun onGetSquadStateChange(dbResultState: DbResultState<List<CharacterModel>>?) {
         when (dbResultState) {
-            is DbResultState.Loading -> Timber.i("LOADING SQUAAAAAADDD.........")
+
             is DbResultState.Success -> {
-                Timber.i("GOT SQUAD")
+                Toast.makeText(applicationContext, "${dbResultState.data}", Toast.LENGTH_LONG).show()
             }
             is DbResultState.EmptyError -> {
-                Timber.i("EmptyError SQUAD")
+                Toast.makeText(applicationContext, "Your SQUAD is empty", Toast.LENGTH_LONG).show()
             }
             is DbResultState.GenericError -> {
-                Timber.i("GenericError SQUAD")
+                Toast.makeText(applicationContext, "ERROR WITH SQUADS", Toast.LENGTH_LONG).show()
             }
         }
     }

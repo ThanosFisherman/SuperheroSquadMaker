@@ -6,7 +6,6 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.common.HeroesPageDataSource
 import com.thanosfisherman.domain.common.HeroesPageDataSourceFactory
 import com.thanosfisherman.domain.model.CharacterModel
@@ -15,12 +14,13 @@ import com.thanosfisherman.domain.usecase.GetSquadUseCase
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.launch
 
 @FlowPreview
 @ExperimentalCoroutinesApi
 class MainViewModel(
     private val getAllCharactersApiUseCase: GetAllCharactersApiUseCase,
-    getSquadUseCase: GetSquadUseCase
+    private val getSquadUseCase: GetSquadUseCase
 ) : ViewModel() {
 
     private val heroesPageDataSource: HeroesPageDataSource = HeroesPageDataSource(getAllCharactersApiUseCase, viewModelScope)
@@ -32,6 +32,11 @@ class MainViewModel(
         LivePagedListBuilder(dataSourceFactory, HeroesPageDataSourceFactory.pagedListConfig()).build()
     }
 
-    val liveSquadCharacters: LiveData<DbResultState<List<CharacterModel>>> = getSquadUseCase.execute(Unit).asLiveData()
+    val liveSquadCharacters = getSquadUseCase.channelSquad.asFlow().asLiveData()
 
+    fun getSquad() {
+        viewModelScope.launch {
+            getSquadUseCase.getSquad()
+        }
+    }
 }

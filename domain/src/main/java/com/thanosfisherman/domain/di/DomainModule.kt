@@ -10,6 +10,5 @@ val domainModule = module {
     single { GetAllCharactersDbUseCase(get()) }
     single { GetSquadUseCase(get()) }
     single { DisplayComicsUseCase(get()) }
-    single { AddToSquadUseCase(get()) }
-    single { DeleteFromSquadUseCase(get()) }
+    single { SquadManagerUseCase(get()) }
 }

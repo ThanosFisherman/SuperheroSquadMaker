@@ -8,15 +8,17 @@ interface DbRepo {
 
     fun getAllHeroes(): Flow<DbResultState<List<CharacterModel>>>
 
-    fun getSquad(): Flow<DbResultState<List<CharacterModel>>>
+    suspend fun getSquad(): DbResultState<List<CharacterModel>>
 
-    fun addHeroToSquad(characterModel: CharacterModel): Flow<DbResultState<Long>>
+    suspend fun addHeroToSquad(characterModel: CharacterModel)
 
-    fun deleteHeroFromSquad(characterModel: CharacterModel): Flow<DbResultState<Unit>>
+    suspend fun deleteHeroFromSquad(characterModel: CharacterModel)
 
     fun addHero(characterModel: CharacterModel): Flow<DbResultState<Long>>
 
     fun addAllHeroes(heroes: List<CharacterModel>): Flow<DbResultState<Unit>>
 
     fun updateSquad(characterModel: CharacterModel): Flow<DbResultState<Int>>
+
+    suspend fun checkIsHeroInSquad(characterModel: CharacterModel): DbResultState<Boolean>
 }

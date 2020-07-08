@@ -20,23 +20,21 @@ class DbRepoImpl(private val heroesDao: HeroesDao, private val squadDao: SquadDa
             emit(DbResultState.Success(heroes.map { it.asDomain() }))
     }
 
-    override fun getSquad(): Flow<DbResultState<List<CharacterModel>>> = flow {
+    override suspend fun getSquad(): DbResultState<List<CharacterModel>> {
         val squad = squadDao.findAllHeroesInSquad()
-        if (squad.isEmpty())
-            emit(DbResultState.EmptyError)
+        return if (squad.isEmpty())
+            DbResultState.EmptyError
         else
-            emit(DbResultState.Success(squad.map { it.asDomain() }))
+            DbResultState.Success(squad.map { it.asDomain() })
     }
 
-    override fun addHeroToSquad(characterModel: CharacterModel): Flow<DbResultState<Long>> = flow {
+    override suspend fun addHeroToSquad(characterModel: CharacterModel) {
         val squadEntity = SquadEntity(characterModel.id, characterModel.name, characterModel.description, characterModel.pic)
-        val id = squadDao.insertHeroToSquad(squadEntity)
-        emit(DbResultState.Success(id))
+        squadDao.insertHeroToSquad(squadEntity)
     }
 
-    override fun deleteHeroFromSquad(characterModel: CharacterModel): Flow<DbResultState<Unit>> = flow {
+    override suspend fun deleteHeroFromSquad(characterModel: CharacterModel) {
         squadDao.deleteHeroFromSquadById(characterModel.id)
-        emit(DbResultState.Success(Unit))
     }
 
     override fun addHero(characterModel: CharacterModel): Flow<DbResultState<Long>> = flow {
@@ -57,4 +55,11 @@ class DbRepoImpl(private val heroesDao: HeroesDao, private val squadDao: SquadDa
         val rows = squadDao.updateHeroInSquad(squadEntity)
         emit(DbResultState.Success(rows))
     }
+
+    override suspend fun checkIsHeroInSquad(characterModel: CharacterModel): DbResultState<Boolean> {
+        val hero = squadDao.findHeroById(characterModel.id)
+        return DbResultState.Success(hero != null)
+    }
+
+
 }

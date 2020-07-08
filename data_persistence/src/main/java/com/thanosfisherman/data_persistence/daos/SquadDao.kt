@@ -26,4 +26,5 @@ interface SquadDao {
 
     @Query("SELECT * FROM SQUAD WHERE name == :name")
     suspend fun findHeroByName(name: String): List<SquadEntity>
+
 }
