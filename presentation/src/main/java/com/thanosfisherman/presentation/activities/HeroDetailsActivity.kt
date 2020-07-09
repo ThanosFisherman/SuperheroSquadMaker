@@ -3,6 +3,7 @@ package com.thanosfisherman.presentation.activities
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import coil.api.load
@@ -45,14 +46,15 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
         fab.setOnClickListener { detailsViewModel.addOrRemoveFromSquad(characterModel) }
 
         characterModel?.let {
-            txtDescription.text = it.description
+            txtDescription.text = if (it.description.isBlank()) getString(R.string.no_description) else it.description
             txtHeroName.text = it.name
             imgBackdrop.load(it.pic)
             detailsViewModel.checkIsInSquad(it)
             app_bar.addOnOffsetChangedListener(HideAppBarListener(it.name))
+
             observe(detailsViewModel.liveGetComicByCharId(it.id), ::getComicsState)
-            observe(detailsViewModel.liveCheckInSquad) { dbResultState -> getCheckInSquadState(dbResultState) }
-            observe(detailsViewModel.liveAdRemove) { dbResultState -> getAddOrRemoveSquadState(dbResultState) }
+            observe(detailsViewModel.liveCheckInSquad, ::getCheckInSquadState)
+            observe(detailsViewModel.liveAdRemove, ::getAddOrRemoveSquadState)
         }
     }
 
@@ -105,9 +107,9 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
             is NetworkResultState.Error -> {
                 when (val errorModel = networkResultState.error) {
                     is ErrorModel.Unknown -> {
-                        Timber.e(errorModel.msg)
+                        Toast.makeText(applicationContext, errorModel.msg, Toast.LENGTH_LONG).show()
                     }
-                    is ErrorModel.NetworkError -> Timber.i("NETWORK ERROR")
+                    is ErrorModel.NetworkError -> Toast.makeText(applicationContext, R.string.network_error, Toast.LENGTH_LONG).show()
                     is ErrorModel.ServerError -> {
                         RapidSnack.error(fab, "SERVER ERROR ${errorModel.code} ${errorModel.message}")
                     }
@@ -125,22 +127,22 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
 
     override fun messageFromChildToParent() {
         detailsViewModel.addOrRemoveFromSquad(characterModel, true)
-        Timber.i("MESSAGE FROM CHILD TO PARENT")
     }
 
     private fun populateComics(comics: List<ComicModel>) {
         when {
-            comics.size > 2 -> {
+            comics.isEmpty() -> txtLastAppeared.text = getString(R.string.no_appearances)
+            comics.size == 1 -> {
                 comic1.load(comics[0].pic)
-                comic2.load(comics[1].pic)
-                txtAndMore.text = getString(R.string.and_more, (comics.size - 2))
             }
             comics.size == 2 -> {
                 comic1.load(comics[0].pic)
                 comic2.load(comics[1].pic)
             }
-            comics.size == 1 -> {
+            comics.size > 2 -> {
                 comic1.load(comics[0].pic)
+                comic2.load(comics[1].pic)
+                txtAndMore.text = getString(R.string.and_more, (comics.size - 2))
             }
         }
     }
