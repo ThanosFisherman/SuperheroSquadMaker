@@ -1,10 +1,10 @@
 package com.thanosfisherman.presentation.activities
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import coil.api.load
 import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.common.NetworkResultState
@@ -22,11 +22,7 @@ import kotlinx.android.synthetic.main.activity_hero_details.*
 import kotlinx.android.synthetic.main.content_scrolling.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import reactivecircus.flowbinding.android.view.clicks
 import timber.log.Timber
 
 @ExperimentalCoroutinesApi
@@ -45,9 +41,7 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
         characterModel = intent.getParcelableExtra("CharacterModel")
         toolbar_layout.title = characterModel?.name
 
-        fab.clicks().debounce(300).onEach {
-            detailsViewModel.addOrRemoveFromSquad(characterModel)
-        }.launchIn(lifecycleScope)
+        fab.setOnClickListener { detailsViewModel.addOrRemoveFromSquad(characterModel) }
 
         characterModel?.let {
             txtDescription.text = it.description
@@ -64,8 +58,10 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
             is DbResultState.Success -> {
                 if (dbResultState.data) {
                     fab.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_fire))
+                    fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.red_500))
                 } else {
                     fab.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_heart))
+                    fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.colorAccent))
                 }
             }
         }
@@ -76,14 +72,22 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
             is DbResultState.Success -> {
                 if (dbResultState.data) {
                     fab.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_fire))
-                    RapidSnack.success(fab)
+                    fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.red_500))
+                    RapidSnack.success(fab, R.string.hero_added)
                 } else {
                     fab.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_heart))
-                    RapidSnack.error(fab)
+                    fab.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(applicationContext, R.color.colorAccent))
+                    RapidSnack.fire(fab, R.string.hero_removed)
                 }
             }
             is DbResultState.ShowDialodRemove -> {
-                FragmentUtils.showDialog(AlertFragment.newInstance("DELETE?", "DELETE HERO?"), supportFragmentManager)
+                FragmentUtils.showDialog(
+                    AlertFragment.newInstance(
+                        getString(R.string.squad_alert_remove_title),
+                        getString(R.string.squad_alert_remove_msg, characterModel?.name)
+                    ),
+                    supportFragmentManager
+                )
             }
         }
     }

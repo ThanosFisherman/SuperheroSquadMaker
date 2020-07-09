@@ -2,6 +2,11 @@
     <string name="app_name">SuperheroSquadMaker</string>
     <string name="success">Success</string>
     <string name="try_again">Something went wrong. Please try again</string>
+    <string name="network_error">A network error occurred. Please try again</string>
+    <string name="hero_added">Hero added to Squad</string>
+    <string name="hero_removed">Hero Removed From Squad</string>
+    <string name="squad_alert_remove_title">Remove Hero?</string>
+    <string name="squad_alert_remove_msg">This will remove %1$s from squad. Are you Sure?</string>
     <string name="title_activity_hero_details">ScrollingActivity</string>
     <string name="action_settings">Settings</string>
     <string name="my_squad">My Squad</string>

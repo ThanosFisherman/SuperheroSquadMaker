@@ -37,6 +37,18 @@ object RapidSnack {
         }
     }
 
+    fun fire(view: View, @StringRes message: Int = R.string.try_again) {
+        snackbar?.dismiss()
+        snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG).apply {
+            animationMode = Snackbar.ANIMATION_MODE_SLIDE
+            setAction(android.R.string.ok) { dismiss() }
+            setActionTextColor(Color.WHITE)
+            setBackgroundRes(R.drawable.bg_error)
+            setTextStyle(R.drawable.ic_fire, Color.WHITE)
+            show()
+        }
+    }
+
     fun error(view: View, message: String) {
         snackbar?.dismiss()
         snackbar = Snackbar.make(view, message, Snackbar.LENGTH_LONG).apply {
