@@ -56,14 +56,15 @@ class MainActivity : AppCompatActivity() {
         recycler_squad.layoutManager = layoutManagerHorizontal
         recycler_squad.adapter = squadAdapter
 
-        heroesAdapter.itemClicks.debounce(100).onEach { startHeroDetailsActivity(it) }.launchIn(lifecycleScope)
-        squadAdapter.itemClicksSquad.debounce(100).onEach { startHeroDetailsActivity(it) }.launchIn(lifecycleScope)
+        heroesAdapter.itemClicks.debounce(50).onEach { startHeroDetailsActivity(it) }.launchIn(lifecycleScope)
+        squadAdapter.itemClicksSquad.debounce(50).onEach { startHeroDetailsActivity(it) }.launchIn(lifecycleScope)
 
         val fadeIn = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_in)
         val fadeOut = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
         animator_load.inAnimation = fadeIn
         animator_load.outAnimation = fadeOut
-
+        switchAnimatorView(HEROES_PROGRESS_VIEW)
+        progressLoadMore.visibility = View.VISIBLE
         observe(mainViewModel.liveCharactersPagedApi) { pagedList: PagedList<CharacterModel> -> heroesAdapter.submitList(pagedList) }
         observe(mainViewModel.liveNetworkResult, ::onGetNetworkResultStateChange)
         observe(mainViewModel.liveSquadCharacters, ::onGetSquadStateChange)
@@ -77,10 +78,11 @@ class MainActivity : AppCompatActivity() {
     private fun onGetNetworkResultStateChange(networkResultState: NetworkResultState<List<CharacterModel>>) {
         when (networkResultState) {
             is NetworkResultState.Loading -> {
-                switchAnimatorView(HEROES_PROGRESS_VIEW)
+                progressLoadMore.visibility = View.VISIBLE
             }
             is NetworkResultState.Success -> {
                 switchAnimatorView(HEROES_LIST_VIEW)
+                progressLoadMore.visibility = View.GONE
             }
             is NetworkResultState.Error -> {
                 RapidSnack.error(txtMySquad)
