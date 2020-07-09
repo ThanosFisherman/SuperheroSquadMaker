@@ -7,8 +7,10 @@
     <string name="hero_removed">Hero Removed From Squad</string>
     <string name="squad_alert_remove_title">Remove Hero?</string>
     <string name="squad_alert_remove_msg">This will remove %1$s from squad. Are you Sure?</string>
-    <string name="title_activity_hero_details">ScrollingActivity</string>
+    <string name="and_more">And %1$d more</string>
+    <string name="title_activity_hero_details">Hero Details</string>
     <string name="action_settings">Settings</string>
     <string name="my_squad">My Squad</string>
     <string name="fetching_heroes">Fetching heroes list…</string>
+    <string name="last_appeared">Last appeared in</string>
 </resources>

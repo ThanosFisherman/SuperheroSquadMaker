@@ -14,16 +14,57 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/txtDescription"
-            android:layout_width="wrap_content"
+            android:id="@+id/txtHeroName"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
-            tools:text="@string/large_text" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            tools:text="A BOMB" />
 
         <TextView
-            android:id="@+id/txtComics"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/txtDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            tools:text="This is a description" />
+
+        <TextView
+            android:id="@+id/txtLastAppeared"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/last_appeared"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:padding="8dp"
+            android:rowCount="1">
+
+            <ImageView
+                android:id="@+id/comic1"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                tools:src="@drawable/plum_logo" />
+
+            <ImageView
+                android:id="@+id/comic2"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                tools:src="@drawable/plum_logo" />
+
+        </GridLayout>
+
+        <TextView
+            android:id="@+id/txtAndMore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            tools:text="And 1 more" />
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

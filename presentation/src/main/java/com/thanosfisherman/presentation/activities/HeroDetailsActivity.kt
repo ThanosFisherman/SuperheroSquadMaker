@@ -14,6 +14,7 @@ import com.thanosfisherman.domain.model.ErrorModel
 import com.thanosfisherman.presentation.R
 import com.thanosfisherman.presentation.common.extensions.observe
 import com.thanosfisherman.presentation.common.utils.FragmentUtils
+import com.thanosfisherman.presentation.common.utils.HideAppBarListener
 import com.thanosfisherman.presentation.common.utils.RapidSnack
 import com.thanosfisherman.presentation.fragments.AlertFragment
 import com.thanosfisherman.presentation.fragments.FragmentInteractionListener
@@ -45,8 +46,10 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
 
         characterModel?.let {
             txtDescription.text = it.description
+            txtHeroName.text = it.name
             imgBackdrop.load(it.pic)
             detailsViewModel.checkIsInSquad(it)
+            app_bar.addOnOffsetChangedListener(HideAppBarListener(it.name))
             observe(detailsViewModel.liveGetComicByCharId(it.id), ::getComicsState)
             observe(detailsViewModel.liveCheckInSquad) { dbResultState -> getCheckInSquadState(dbResultState) }
             observe(detailsViewModel.liveAdRemove) { dbResultState -> getAddOrRemoveSquadState(dbResultState) }
@@ -93,14 +96,11 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
     }
 
     private fun getComicsState(networkResultState: NetworkResultState<List<ComicModel>>) {
-        var comics = ""
+
         when (networkResultState) {
             is NetworkResultState.Loading -> Timber.i("LOADING COMICS.........")
             is NetworkResultState.Success -> {
-                networkResultState.data.forEach {
-                    comics = comics + "\n" + it.title
-                }
-                txtComics.text = comics
+                populateComics(networkResultState.data)
             }
             is NetworkResultState.Error -> {
                 when (val errorModel = networkResultState.error) {
@@ -109,7 +109,7 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
                     }
                     is ErrorModel.NetworkError -> Timber.i("NETWORK ERROR")
                     is ErrorModel.ServerError -> {
-                        Timber.i("SERVER ERROR " + errorModel.code + " " + errorModel.message)
+                        RapidSnack.error(fab, "SERVER ERROR ${errorModel.code} ${errorModel.message}")
                     }
                 }
             }
@@ -126,5 +126,22 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
     override fun messageFromChildToParent() {
         detailsViewModel.addOrRemoveFromSquad(characterModel, true)
         Timber.i("MESSAGE FROM CHILD TO PARENT")
+    }
+
+    private fun populateComics(comics: List<ComicModel>) {
+        when {
+            comics.size > 2 -> {
+                comic1.load(comics[0].pic)
+                comic2.load(comics[1].pic)
+                txtAndMore.text = getString(R.string.and_more, (comics.size - 2))
+            }
+            comics.size == 2 -> {
+                comic1.load(comics[0].pic)
+                comic2.load(comics[1].pic)
+            }
+            comics.size == 1 -> {
+                comic1.load(comics[0].pic)
+            }
+        }
     }
 }
