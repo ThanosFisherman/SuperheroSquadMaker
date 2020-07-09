@@ -3,7 +3,8 @@
     <dimen name="detail_backdrop_height">256dp</dimen>
     <dimen name="card_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="list_item_avatar_size">40dp</dimen>
+    <dimen name="list_item_avatar_size">48dp</dimen>
+    <dimen name="list_item_squad_avatar_size">88dp</dimen>
     <dimen name="app_bar_height">270dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="snack_icon_padding">8dp</dimen>
