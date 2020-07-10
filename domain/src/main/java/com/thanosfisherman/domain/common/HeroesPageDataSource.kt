@@ -4,19 +4,15 @@ import androidx.paging.PageKeyedDataSource
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.domain.model.ErrorModel
 import com.thanosfisherman.domain.usecase.GetAllCharactersApiUseCase
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 class HeroesPageDataSource(private val getAllCharactersApiUseCase: GetAllCharactersApiUseCase, private val scope: CoroutineScope) :
     PageKeyedDataSource<Int, CharacterModel>() {
 
-    val networkStateChannel = BroadcastChannel<NetworkResultState<List<CharacterModel>>>(Channel.BUFFERED)
+    val networkStateChannel: ConflatedBroadcastChannel<NetworkResultState<List<CharacterModel>>> = ConflatedBroadcastChannel()
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, CharacterModel>) {
         val numberOfItems = params.requestedLoadSize
@@ -42,7 +38,7 @@ class HeroesPageDataSource(private val getAllCharactersApiUseCase: GetAllCharact
         initialCallback: LoadInitialCallback<Int, CharacterModel>?,
         callback: LoadCallback<Int, CharacterModel>?
     ) {
-        scope.launch(getJobErrorHandler()) {
+        scope.launch(getJobErrorHandler() + Dispatchers.IO) {
             val response = getAllCharactersApiUseCase.execute(requestedPage * requestedLoadSize)
             response.collect {
                 when (it) {

@@ -6,22 +6,18 @@ import com.thanosfisherman.domain.repos.DbRepo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
-import timber.log.Timber
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 
 @ExperimentalCoroutinesApi
 class SquadManagerUseCase(private val dbRepo: DbRepo) {
     val channelAddRemove: BroadcastChannel<DbResultState<Boolean>> = BroadcastChannel(Channel.BUFFERED)
-    val channelCheck: BroadcastChannel<DbResultState<Boolean>> = BroadcastChannel(Channel.BUFFERED)
+    val channelCheck: ConflatedBroadcastChannel<DbResultState<Boolean>> = ConflatedBroadcastChannel()
 
     suspend fun checkIsHeroInSquad(characterModel: CharacterModel?) {
         if (characterModel == null)
             return
-        when (val checkResult = dbRepo.checkIsHeroInSquad(characterModel)) {
-            is DbResultState.Success -> {
-                channelCheck.offer(checkResult)
-            }
-            else -> Timber.i("ERROR CHECKING")
-        }
+        val checkResult = dbRepo.checkIsHeroInSquad(characterModel)
+        channelCheck.offer(checkResult)
     }
 
     suspend fun addRemove(characterModel: CharacterModel?, isPromptShown: Boolean = false) {

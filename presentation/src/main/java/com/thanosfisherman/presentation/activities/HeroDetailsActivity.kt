@@ -46,15 +46,17 @@ class HeroDetailsActivity : AppCompatActivity(), FragmentInteractionListener {
         fab.setOnClickListener { detailsViewModel.addOrRemoveFromSquad(characterModel) }
 
         characterModel?.let {
+
+            observe(detailsViewModel.liveGetComicByCharId(it.id), ::getComicsState)
+            observe(detailsViewModel.liveCheckInSquad, ::getCheckInSquadState)
+            observe(detailsViewModel.liveAdRemove, ::getAddOrRemoveSquadState)
+
             txtDescription.text = if (it.description.isBlank()) getString(R.string.no_description) else it.description
             txtHeroName.text = it.name
             imgBackdrop.load(it.pic)
             detailsViewModel.checkIsInSquad(it)
             app_bar.addOnOffsetChangedListener(HideAppBarListener(it.name))
 
-            observe(detailsViewModel.liveGetComicByCharId(it.id), ::getComicsState)
-            observe(detailsViewModel.liveCheckInSquad, ::getCheckInSquadState)
-            observe(detailsViewModel.liveAdRemove, ::getAddOrRemoveSquadState)
         }
     }
 

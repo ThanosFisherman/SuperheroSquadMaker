@@ -11,6 +11,7 @@ import com.thanosfisherman.domain.common.HeroesPageDataSourceFactory
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.domain.usecase.GetAllCharactersApiUseCase
 import com.thanosfisherman.domain.usecase.GetSquadUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.asFlow
@@ -35,7 +36,7 @@ class MainViewModel(
     val liveSquadCharacters = getSquadUseCase.channelSquad.asFlow().asLiveData()
 
     fun getSquad() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             getSquadUseCase.getSquad()
         }
     }

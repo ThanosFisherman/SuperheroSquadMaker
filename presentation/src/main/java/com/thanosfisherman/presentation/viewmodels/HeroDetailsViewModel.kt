@@ -9,6 +9,7 @@ import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.domain.model.ComicModel
 import com.thanosfisherman.domain.usecase.DisplayComicsUseCase
 import com.thanosfisherman.domain.usecase.SquadManagerUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.asFlow
@@ -29,10 +30,10 @@ class HeroDetailsViewModel(
     }
 
     fun checkIsInSquad(characterModel: CharacterModel?) {
-        viewModelScope.launch { squadManagerUseCase.checkIsHeroInSquad(characterModel) }
+        viewModelScope.launch(Dispatchers.IO) { squadManagerUseCase.checkIsHeroInSquad(characterModel) }
     }
 
     fun addOrRemoveFromSquad(characterModel: CharacterModel?, isPromptShown: Boolean = false) {
-        viewModelScope.launch { squadManagerUseCase.addRemove(characterModel, isPromptShown) }
+        viewModelScope.launch(Dispatchers.IO) { squadManagerUseCase.addRemove(characterModel, isPromptShown) }
     }
 }

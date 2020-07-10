@@ -4,13 +4,12 @@ import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.domain.repos.DbRepo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.ConflatedBroadcastChannel
 
 @ExperimentalCoroutinesApi
 class GetSquadUseCase(private val dbRepo: DbRepo) {
 
-    val channelSquad: BroadcastChannel<DbResultState<List<CharacterModel>>> = BroadcastChannel(Channel.BUFFERED)
+    val channelSquad: ConflatedBroadcastChannel<DbResultState<List<CharacterModel>>> = ConflatedBroadcastChannel()
 
     suspend fun getSquad() {
         when (val squadResult = dbRepo.getSquad()) {

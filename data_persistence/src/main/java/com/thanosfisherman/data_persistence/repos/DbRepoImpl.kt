@@ -7,8 +7,10 @@ import com.thanosfisherman.data_persistence.models.SquadEntity
 import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.domain.repos.DbRepo
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 
 class DbRepoImpl(private val heroesDao: HeroesDao, private val squadDao: SquadDao) : DbRepo {
 
@@ -18,7 +20,7 @@ class DbRepoImpl(private val heroesDao: HeroesDao, private val squadDao: SquadDa
             emit(DbResultState.EmptyError)
         else
             emit(DbResultState.Success(heroes.map { it.asDomain() }))
-    }
+    }.flowOn(Dispatchers.IO)
 
     override suspend fun getSquad(): DbResultState<List<CharacterModel>> {
         val squad = squadDao.findAllHeroesInSquad()
@@ -41,25 +43,23 @@ class DbRepoImpl(private val heroesDao: HeroesDao, private val squadDao: SquadDa
         val heroEntity = HeroEntity(characterModel.id, characterModel.name, characterModel.description, characterModel.pic)
         val id = heroesDao.insertHero(heroEntity)
         emit(DbResultState.Success(id))
-    }
+    }.flowOn(Dispatchers.IO)
 
     override fun addAllHeroes(heroes: List<CharacterModel>): Flow<DbResultState<Unit>> = flow {
         val heroeEntities = heroes.map { HeroEntity(it.id, it.name, it.description, it.pic) }
         heroesDao.insertAllHeroes(heroeEntities)
         emit(DbResultState.Success(Unit))
 
-    }
+    }.flowOn(Dispatchers.IO)
 
     override fun updateSquad(characterModel: CharacterModel): Flow<DbResultState<Int>> = flow {
         val squadEntity = SquadEntity(characterModel.id, characterModel.name, characterModel.description, characterModel.pic)
         val rows = squadDao.updateHeroInSquad(squadEntity)
         emit(DbResultState.Success(rows))
-    }
+    }.flowOn(Dispatchers.IO)
 
     override suspend fun checkIsHeroInSquad(characterModel: CharacterModel): DbResultState<Boolean> {
         val hero = squadDao.findHeroById(characterModel.id)
         return DbResultState.Success(hero != null)
     }
-
-
 }
