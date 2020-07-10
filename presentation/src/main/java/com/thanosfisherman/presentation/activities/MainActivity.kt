@@ -56,8 +56,8 @@ class MainActivity : AppCompatActivity() {
         recycler_squad.layoutManager = layoutManagerHorizontal
         recycler_squad.adapter = squadAdapter
 
-        heroesAdapter.itemClicks.debounce(50).onEach { startHeroDetailsActivity(it) }.launchIn(lifecycleScope)
-        squadAdapter.itemClicksSquad.debounce(50).onEach { startHeroDetailsActivity(it) }.launchIn(lifecycleScope)
+        heroesAdapter.itemClicks.debounce(100).onEach { startHeroDetailsActivity(it) }.launchIn(lifecycleScope)
+        squadAdapter.itemClicksSquad.debounce(100).onEach { startHeroDetailsActivity(it) }.launchIn(lifecycleScope)
 
         val fadeIn = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_in)
         val fadeOut = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)

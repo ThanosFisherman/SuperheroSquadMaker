@@ -7,14 +7,14 @@
     android:background="?selectableItemBackground"
     android:clickable="true"
     android:focusable="true"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:padding="8dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/squadAvatar"
         android:layout_width="@dimen/list_item_squad_avatar_size"
         android:layout_height="@dimen/list_item_squad_avatar_size"
         android:layout_gravity="center"
-        android:padding="8dp"
         tools:src="@drawable/plum_logo" />
 
 </FrameLayout>
