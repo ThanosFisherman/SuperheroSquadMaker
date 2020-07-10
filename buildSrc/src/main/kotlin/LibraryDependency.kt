@@ -50,16 +50,12 @@ object CoreDependency {
 
     const val kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:${CoreVersion.KOTLIN}"
     const val kotlinReflect = "org.jetbrains.kotlin:kotlin-reflect:${CoreVersion.KOTLIN}"
-    const val rxjava2 = "io.reactivex.rxjava2:rxjava:${LibraryVersion.rxJavaVersion}"
-    const val rxAndroid = "io.reactivex.rxjava2:rxandroid:${LibraryVersion.rxAndroidVersion}"
-    const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:${LibraryVersion.rxKotlinVersion}"
     const val koin = "org.koin:koin-android:${LibraryVersion.koinVersion}"
     const val koinVM = "org.koin:koin-androidx-viewmodel:${LibraryVersion.koinVersion}"
     const val koinScope = "org.koin:koin-androidx-scope:${LibraryVersion.koinVersion}"
     const val timber = "com.jakewharton.timber:timber:${LibraryVersion.timberVersion}"
     const val moshi = "com.squareup.moshi:moshi-kotlin:${LibraryVersion.moshiVersion}"
     const val moshiAdapters = "com.squareup.moshi:moshi-adapters:${LibraryVersion.moshiVersion}"
-    const val jwt = "com.auth0.android:jwtdecode:${LibraryVersion.jwtVersion}"
     const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${LibraryVersion.coroutinesVersion}"
     const val coroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${LibraryVersion.coroutinesVersion}"
     const val listPageAdapter = "androidx.paging:paging-runtime-ktx:${LibraryVersion.pagingVersion}"
@@ -80,14 +76,12 @@ object UiDependency {
     const val recyclerView = "androidx.recyclerview:recyclerview:${LibraryVersion.recyclerViewVersion}"
     const val navigationUI = "androidx.navigation:navigation-fragment-ktx:${CoreVersion.NAVIGATION}"
     const val navigationKtx = "androidx.navigation:navigation-ui-ktx:${CoreVersion.NAVIGATION}"
-    const val picasso = "com.squareup.picasso:picasso:${LibraryVersion.picassoVersion}"
     const val material = "com.google.android.material:material:${LibraryVersion.materialVersion}"
     const val mayI = "com.thanosfisherman.mayi:mayi:${LibraryVersion.mayIVersion}"
     const val viewFlowBindings = "io.github.reactivecircus.flowbinding:flowbinding-android:${LibraryVersion.flowBindingsVersion}"
     const val progressButton = "com.github.razir.progressbutton:progressbutton:${LibraryVersion.progressButtonVersion}"
     const val circleImageView = "de.hdodenhof:circleimageview:${LibraryVersion.circleImageView}"
     const val coil = "io.coil-kt:coil:${LibraryVersion.coilVersion}"
-    //const val glide = "com.github.bumptech.glide:glide:${LibraryVersion.glideVersion}"
 
     fun getAll() = UiDependency::class.memberProperties
         .filter { it.isConst }
@@ -98,7 +92,6 @@ object UiDependency {
 object NetworkDependency {
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${LibraryVersion.retrofit2Version}"
-    const val retrofitRxJava2Adapter = "com.squareup.retrofit2:adapter-rxjava2:${LibraryVersion.retrofit2Version}"
     const val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${LibraryVersion.retrofit2Version}"
     const val okhttpLogging = "com.squareup.okhttp3:logging-interceptor:${LibraryVersion.okhttpLoggingVersion}"
     const val okio = "com.squareup.okio:okio:${LibraryVersion.okioVersion}"
@@ -116,16 +109,6 @@ object PersistenceDependency {
     const val roomDb = "androidx.room:room-runtime:${LibraryVersion.roomVersion}"
     const val roomKtx = "androidx.room:room-ktx:${LibraryVersion.roomVersion}"
     fun getAll() = PersistenceDependency::class.memberProperties
-        .filter { it.isConst }
-        .map { it.getter.call().toString() }
-        .toSet()
-}
-
-object BluetoothDependency {
-
-    //const val blueFLow = "io.github.thanosfisherman.blueflow:blueflow:${LibraryVersion.blueFlowVersion}"
-
-    fun getAll() = NetworkDependency::class.memberProperties
         .filter { it.isConst }
         .map { it.getter.call().toString() }
         .toSet()

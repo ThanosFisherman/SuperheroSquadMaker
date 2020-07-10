@@ -30,12 +30,6 @@ fun DependencyHandler.addDataPersistenceDependencies() {
     PersistenceDependency.getAll().forEach { implementation(it) }
 }
 
-fun DependencyHandler.addDataBluetoothDependencies() {
-    implementation(project(ModuleDependency.DOMAIN))
-    CoreDependency.getAll().forEach { implementation(it) }
-    BluetoothDependency.getAll().forEach { implementation(it) }
-}
-
 fun DependencyHandler.addTestDependencies() {
 
     androidTestImplementation(TestLibraryDependency.TEST_RUNNER)
