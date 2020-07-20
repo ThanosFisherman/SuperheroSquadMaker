@@ -1,5 +1,5 @@
 object GradlePluginVersion {
-    const val ANDROID_GRADLE = "4.0.0"
+    const val ANDROID_GRADLE = "4.0.1"
     const val KOTLIN = CoreVersion.KOTLIN
     const val SAFE_ARGS = CoreVersion.NAVIGATION
 
