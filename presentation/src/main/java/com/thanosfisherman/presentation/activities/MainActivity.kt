@@ -7,7 +7,6 @@ import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagedList
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.common.NetworkResultState
@@ -16,6 +15,7 @@ import com.thanosfisherman.presentation.R
 import com.thanosfisherman.presentation.adapters.HeroesRecyclerAdapter
 import com.thanosfisherman.presentation.adapters.SquadRecyclerAdapter
 import com.thanosfisherman.presentation.common.extensions.observe
+import com.thanosfisherman.presentation.common.utils.MyDivider
 import com.thanosfisherman.presentation.common.utils.RapidSnack
 import com.thanosfisherman.presentation.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
         val layoutManagerVertical = LinearLayoutManager(applicationContext)
         recycler_heroes.setHasFixedSize(true)
         recycler_heroes.layoutManager = layoutManagerVertical
-        recycler_heroes.addItemDecoration(DividerItemDecoration(applicationContext, DividerItemDecoration.VERTICAL))
+        recycler_heroes.addItemDecoration(MyDivider(applicationContext))
         recycler_heroes.adapter = heroesAdapter
 
         squadAdapter = SquadRecyclerAdapter(lifecycleScope)
