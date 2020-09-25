@@ -15,6 +15,7 @@ Initially the app fetches the Characters list from Marvel's API over the network
 This app features the following technologies and coding practices.
 
 - Kotlin
+- Koin for Dependency Injection
 - Gradle Kotlin DSL scripts
 - Clean architecture principles
 - Module separation for each layer (domain, presentation, data). I decided to use modules for better separation of concerns.
