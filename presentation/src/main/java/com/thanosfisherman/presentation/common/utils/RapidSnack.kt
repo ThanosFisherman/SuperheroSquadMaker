@@ -7,8 +7,10 @@ import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.thanosfisherman.presentation.R
+
 
 object RapidSnack {
     private var snackbar: Snackbar? = null
@@ -63,15 +65,19 @@ object RapidSnack {
 
     private fun Snackbar.setTextStyle(@DrawableRes resId: Int, @ColorInt textColor: Int) {
         val textView = view.findViewById<TextView>(R.id.snackbar_text)
+        val textAction = view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
         //textView.textSize = 16F
-        textView.maxLines = 2
+        textView.maxLines = 1
+        textView.setSingleLine()
         textView.gravity = Gravity.CENTER
         textView.setTextColor(textColor)
         textView.setCompoundDrawablesWithIntrinsicBounds(resId, 0, 0, 0)
         textView.compoundDrawablePadding = textView.resources.getDimensionPixelOffset(R.dimen.snack_icon_padding)
+        textAction.gravity = Gravity.CENTER
+
     }
 
     private fun Snackbar.setBackgroundRes(@DrawableRes resId: Int) {
-        view.background = view.context.getDrawable(resId)
+        view.background = ContextCompat.getDrawable(view.context, resId)
     }
 }
