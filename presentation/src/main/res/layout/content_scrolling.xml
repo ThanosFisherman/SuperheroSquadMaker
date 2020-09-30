@@ -48,13 +48,13 @@
                 android:id="@+id/comic1"
                 android:layout_width="150dp"
                 android:layout_height="200dp"
-                tools:src="@drawable/plum_logo" />
+                tools:src="@drawable/splash_logo" />
 
             <ImageView
                 android:id="@+id/comic2"
                 android:layout_width="150dp"
                 android:layout_height="200dp"
-                tools:src="@drawable/plum_logo" />
+                tools:src="@drawable/splash_logo" />
 
         </GridLayout>
 

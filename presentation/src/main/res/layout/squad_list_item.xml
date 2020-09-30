@@ -15,7 +15,7 @@
         android:layout_width="@dimen/list_item_squad_avatar_size"
         android:layout_height="@dimen/list_item_squad_avatar_size"
         android:layout_gravity="center"
-        tools:src="@drawable/plum_logo" />
+        tools:src="@drawable/splash_logo" />
 
 </FrameLayout>
 

@@ -11,7 +11,7 @@
         <bitmap
             android:antialias="true"
             android:gravity="center"
-            android:src="@drawable/plum_logo" />
+            android:src="@drawable/splash_logo" />
 
     </item>
 
