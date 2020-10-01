@@ -36,7 +36,7 @@ This app features the following technologies and coding practices.
 - Add search capabilities. User should be able to search for his favorite character instead of endlessly scrolling through the list
 - Ditch `LiveData` for `StateFlow`
 - Tests? Ain't nobody got time for tests. Production is the REAL TEST! (just kidding)
-- UI improvements. Make the UI more faithful to the mockups provided.
+- UI improvements.
 - Cache EVERYTHING. Including the list of characters fetched from network
 - Maybe add some fancy animations along the way
 - And More I guess
