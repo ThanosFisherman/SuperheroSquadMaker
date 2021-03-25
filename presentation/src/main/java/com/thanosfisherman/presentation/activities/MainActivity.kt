@@ -6,7 +6,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.PagedList
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.common.NetworkResultState
@@ -21,9 +20,11 @@ import com.thanosfisherman.presentation.viewmodels.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @FlowPreview
@@ -63,10 +64,12 @@ class MainActivity : AppCompatActivity() {
         val fadeOut = AnimationUtils.loadAnimation(applicationContext, android.R.anim.fade_out)
         animator_load.inAnimation = fadeIn
         animator_load.outAnimation = fadeOut
-        switchAnimatorView(HEROES_PROGRESS_VIEW)
-        progressLoadMore.visibility = View.VISIBLE
-        observe(mainViewModel.liveCharactersPagedApi) { pagedList: PagedList<CharacterModel> -> heroesAdapter.submitList(pagedList) }
-        observe(mainViewModel.liveNetworkResult, ::onGetNetworkResultStateChange)
+        switchAnimatorView(HEROES_LIST_VIEW)
+        lifecycleScope.launch {
+            mainViewModel.liveCharactersPagedApi.collectLatest { heroesAdapter.submitData(it) }
+        }
+
+        //observe(mainViewModel.liveNetworkResult, ::onGetNetworkResultStateChange)
         observe(mainViewModel.liveSquadCharacters, ::onGetSquadStateChange)
     }
 
@@ -78,11 +81,9 @@ class MainActivity : AppCompatActivity() {
     private fun onGetNetworkResultStateChange(networkResultState: NetworkResultState<List<CharacterModel>>) {
         when (networkResultState) {
             is NetworkResultState.Loading -> {
-                progressLoadMore.visibility = View.VISIBLE
             }
             is NetworkResultState.Success -> {
                 switchAnimatorView(HEROES_LIST_VIEW)
-                progressLoadMore.visibility = View.GONE
             }
             is NetworkResultState.Error -> {
                 RapidSnack.error(txtMySquad)

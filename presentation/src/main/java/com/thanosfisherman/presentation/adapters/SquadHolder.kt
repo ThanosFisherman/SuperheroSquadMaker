@@ -2,7 +2,7 @@ package com.thanosfisherman.presentation.adapters
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import coil.api.load
+import coil.load
 import com.thanosfisherman.domain.model.CharacterModel
 import kotlinx.android.synthetic.main.squad_list_item.view.*
 import kotlinx.coroutines.CoroutineScope

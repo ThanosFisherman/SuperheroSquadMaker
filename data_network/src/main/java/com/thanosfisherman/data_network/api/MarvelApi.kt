@@ -11,7 +11,7 @@ import retrofit2.http.Query
 interface MarvelApi {
 
     @GET("characters")
-    suspend fun getCharacters(@Query("offset") offset: Int): NetworkResponse<CharactersDataModel, ApiErrorDataModel>
+    suspend fun getCharacters(@Query("offset") offset: Int): CharactersDataModel
 
     @GET("characters/{charId}/comics")
     suspend fun getComicsByCharId(@Path(value = "charId") charId: Long): NetworkResponse<ComicsDataModel, ApiErrorDataModel>

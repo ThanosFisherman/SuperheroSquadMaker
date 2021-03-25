@@ -6,7 +6,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import coil.api.load
+import coil.load
 import com.thanosfisherman.domain.common.DbResultState
 import com.thanosfisherman.domain.common.NetworkResultState
 import com.thanosfisherman.domain.model.CharacterModel

@@ -3,7 +3,7 @@ package com.thanosfisherman.presentation.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagedListAdapter
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.thanosfisherman.domain.model.CharacterModel
 import com.thanosfisherman.presentation.R
@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.consumeAsFlow
 
 @ExperimentalCoroutinesApi
-class HeroesRecyclerAdapter(private val coroutineScope: CoroutineScope) : PagedListAdapter<CharacterModel, HeroHolder>(HeroesDiffCallback()) {
+class HeroesRecyclerAdapter(private val coroutineScope: CoroutineScope) : PagingDataAdapter<CharacterModel, HeroHolder>(HeroesDiffCallback()) {
 
     private val itemClicksChannel: Channel<CharacterModel> = Channel(Channel.UNLIMITED)
 

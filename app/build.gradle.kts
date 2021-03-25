@@ -21,7 +21,7 @@ android {
         getByName(BuildType.DEBUG) {
             isMinifyEnabled = BuildTypeDebug.isMinifyEnabled
             isShrinkResources = BuildTypeDebug.isShrinkResources
-            manifestPlaceholders = BuildTypeDebug.manifestPlaceholders
+            //manifestPlaceholders = BuildTypeDebug.manifestPlaceholders
             isDebuggable = BuildTypeDebug.isDebuggable
             signingConfig = signingConfigs.getByName(BuildType.DEBUG)
         }
@@ -29,7 +29,7 @@ android {
         getByName(BuildType.RELEASE) {
             isMinifyEnabled = BuildTypeRelease.isMinifyEnabled
             isShrinkResources = BuildTypeRelease.isShrinkResources
-            manifestPlaceholders = BuildTypeRelease.manifestPlaceholders
+            //manifestPlaceholders = BuildTypeRelease.manifestPlaceholders
             isDebuggable = BuildTypeRelease.isDebuggable
             //signingConfig = signingConfigs.getByName(BuildType.RELEASE)
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
