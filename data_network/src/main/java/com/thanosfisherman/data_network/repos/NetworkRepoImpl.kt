@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.flowOn
 class NetworkRepoImpl(private val marvelApi: MarvelApi) : NetworkRepo {
     override fun getAllCharacters(offset: Int): Flow<PagingData<CharacterModel>> {
         return Pager(
-            config = PagingConfig(50, enablePlaceholders = true),
+            config = PagingConfig(20, prefetchDistance = 50, enablePlaceholders = true),
             pagingSourceFactory = { HeroesPageDataSource(marvelApi) }
         ).flow
     }
