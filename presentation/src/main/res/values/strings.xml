@@ -15,4 +15,5 @@
     <string name="last_appeared">Last appeared in</string>
     <string name="no_appearances">No appearances found</string>
     <string name="no_description">No description available</string>
+    <string name="retry">Retry</string>
 </resources>
