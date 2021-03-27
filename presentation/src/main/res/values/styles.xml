@@ -13,7 +13,15 @@
         <item name="android:windowBackground">@color/grey_50</item>
         <item name="android:windowEnableSplitTouch">false</item>
         <item name="android:splitMotionEvents">false</item>
-        <!--        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.SonicoLife.LargeComponent</item>-->
+        <!-- enable window content transitions -->
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <!-- specify enter and exit transitions -->
+        <!-- <item name="android:windowEnterTransition">@android:transition/explode</item>
+         <item name="android:windowExitTransition">@android:transition/fade</item>-->
+        <!-- specify shared element transitions -->
+        <!--  <item name="android:windowSharedElementEnterTransition">@transition/change_image_transform</item>
+          <item name="android:windowSharedElementExitTransition">@transition/change_image_transform</item>-->
     </style>
 
     <!-- The launcher theme. It sets the main window background to the launch_screen drawable -->
@@ -38,4 +46,8 @@
         <item name="android:windowExitAnimation">@anim/slide_out_to_right</item>
     </style>
 
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

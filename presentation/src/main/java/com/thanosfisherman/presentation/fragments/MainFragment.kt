@@ -1,9 +1,11 @@
 package com.thanosfisherman.presentation.fragments
 
+import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.Toast
 import android.widget.ViewAnimator
 import androidx.fragment.app.Fragment
@@ -176,7 +178,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
     private fun startHeroDetailsActivity(characterModel: CharacterModel) {
         val intent = Intent(requireActivity(), HeroDetailsActivity::class.java)
         intent.putExtra("CharacterModel", characterModel)
-        startActivity(intent)
+        // create the transition animation - the images in the layouts
+        // of both activities are defined with android:transitionName="hero"
+        val options = ActivityOptions.makeSceneTransitionAnimation(requireActivity())
+        startActivity(intent, options.toBundle())
+
     }
 
     private fun ViewAnimator.switchAnimatorView(id: Int) {

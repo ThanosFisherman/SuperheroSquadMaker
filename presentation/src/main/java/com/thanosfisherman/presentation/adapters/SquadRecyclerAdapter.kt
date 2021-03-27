@@ -12,7 +12,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 
 @ExperimentalCoroutinesApi
 class SquadRecyclerAdapter(private val coroutineScope: CoroutineScope) : ListAdapter<CharacterModel, SquadHolder>(HeroesDiffCallback()) {
@@ -20,7 +20,7 @@ class SquadRecyclerAdapter(private val coroutineScope: CoroutineScope) : ListAda
     private val itemClicksChannel: Channel<CharacterModel> = Channel(Channel.UNLIMITED)
 
     @FlowPreview
-    val itemClicksSquad: Flow<CharacterModel> = itemClicksChannel.consumeAsFlow()
+    val itemClicksSquad: Flow<CharacterModel> = itemClicksChannel.receiveAsFlow()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SquadHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.squad_list_item, parent, false)

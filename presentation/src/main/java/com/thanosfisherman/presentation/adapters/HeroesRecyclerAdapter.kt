@@ -12,15 +12,13 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.consumeAsFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 
 @ExperimentalCoroutinesApi
 class HeroesRecyclerAdapter(private val coroutineScope: CoroutineScope) : PagingDataAdapter<CharacterModel, HeroHolder>(HeroesDiffCallback()) {
 
     private val itemClicksChannel: Channel<CharacterModel> = Channel(Channel.UNLIMITED)
-
-    @FlowPreview
-    val itemClicks: Flow<CharacterModel> = itemClicksChannel.consumeAsFlow()
+    val itemClicks: Flow<CharacterModel> = itemClicksChannel.receiveAsFlow()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HeroHolder {
         val view: View = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
