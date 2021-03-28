@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -10,11 +11,13 @@
     android:orientation="horizontal"
     android:padding="8dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/squadAvatar"
         android:layout_width="@dimen/list_item_squad_avatar_size"
         android:layout_height="@dimen/list_item_squad_avatar_size"
         android:layout_gravity="center"
+        android:scaleType="fitCenter"
+        app:shapeAppearanceOverlay="@style/circleImageView"
         tools:src="@drawable/splash_logo" />
 
 </FrameLayout>

@@ -21,7 +21,6 @@ object LibraryVersion {
     const val mayIVersion = "2.4.0"
     const val progressButtonVersion = "2.1.0"
     const val flowBindingsVersion = "0.12.0"
-    const val circleImageView = "3.1.0"
     const val pagingVersion = "2.1.2"
     const val paging3Version = "3.0.0-beta03"
     const val coilVersion = "1.1.1"
@@ -82,7 +81,6 @@ object UiDependency {
     const val mayI = "com.thanosfisherman.mayi:mayi:${LibraryVersion.mayIVersion}"
     const val viewFlowBindings = "io.github.reactivecircus.flowbinding:flowbinding-android:${LibraryVersion.flowBindingsVersion}"
     const val progressButton = "com.github.razir.progressbutton:progressbutton:${LibraryVersion.progressButtonVersion}"
-    const val circleImageView = "de.hdodenhof:circleimageview:${LibraryVersion.circleImageView}"
     const val coil = "io.coil-kt:coil:${LibraryVersion.coilVersion}"
 
     fun getAll() = UiDependency::class.memberProperties
